@@ -1,0 +1,32 @@
+{% load static %}
+<nav>
+  <div class="nav-wrapper bg-nav">
+    <a href="#" class="brand-logo" style="margin-left: 0.5rem;">
+      <img
+        src="{% static 'img/logo.png' %}"
+        style="width: 2.5rem; height: 4rem;"
+        alt="Bingebuffer Logo"
+      />
+      <span
+        class="text-secondary hide-on-med-and-down"
+        style="position: fixed; padding: 0.25rem; top: 0.1rem;"
+      >
+        INGEBUFFER
+      </span>
+    </a>
+    <a href="#" data-target="mobile-demo" class="sidenav-trigger text-secondary"
+      ><i class="material-icons">menu</i></a
+    >
+    <ul id="nav-mobile" class="right hide-on-med-and-down text-secondary">
+      <li><a href="sass.html">Sass</a></li>
+      <li><a href="badges.html">Components</a></li>
+      <li><a href="collapsible.html">JavaScript</a></li>
+    </ul>
+    <ul class="sidenav bg-primary-light text-secondary" id="mobile-demo">
+      <li><a href="sass.html">Sass</a></li>
+      <li><a href="badges.html">Components</a></li>
+      <li><a href="collapsible.html">Javascript</a></li>
+      <li><a href="mobile.html">Mobile</a></li>
+    </ul>
+  </div>
+</nav>

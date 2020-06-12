@@ -6,14 +6,34 @@
 
 :root {
   --primary-color: #0052cc;
+  --primary-color-light: #9fb7e0;
+  --secondary-color: #172b4d;
+  --danger-color: #ff5630;
+  --warning-color: #ffab00;
+  --success-color: #36b37e;
+  --info-color: #00b8d9;
   --font-color: #172b4d;
   --bg-color: #ffffff;
+  --link-text-color: #ffffff;
+  --shadow1: rgba(0, 0, 0, 0.14);
+  --shadow2: rgba(0, 0, 0, 0.12);
+  --shadow3: rgba(0, 0, 0, 0.2);
 }
 
 [data-theme='dark'] {
   --primary-color: #e50914;
+  --primary-color-light: #e09f9f;
+  --secondary-color: #ffffff;
+  --danger-color: #ff5630;
+  --warning-color: #ffab00;
+  --success-color: #36b37e;
+  --info-color: #00b8d9;
   --font-color: #ffffff;
   --bg-color: #000000;
+  --link-text-color: #ffffff;
+  --shadow1: rgba(255, 255, 255, 0.14);
+  --shadow2: rgba(255, 255, 255, 0.12);
+  --shadow3: rgba(255, 255, 255, 0.2);
 }
 
 body {
@@ -41,21 +61,94 @@ a:visited,
 a:hover,
 a:focus {
   text-decoration: none;
-  color: var(--font-color);
+  color: var(--link-text-color);
 }
 
+a.btn {
+  color: var(--link-text-color);
+  text-decoration: none;
+}
+
+nav {
+  box-shadow: 0 2px 2px 0 var(--shadow1), 0 3px 1px -2px var(--shadow2),
+    0 1px 5px 0 var(--shadow3) !important;
+}
+
+nav ul a {
+  color: var(--secondary-color) !important;
+}
 .text-primary {
-  color: var(--primary-color);
+  color: var(--primary-color) !important;
 }
 
 .text-secondary {
-  color: var(--font-color);
+  color: var(--secondary-color) !important;
+}
+
+.text-danger {
+  color: var(--danger-color) !important;
+}
+
+.text-warning {
+  color: var(--warning-color) !important;
+}
+
+.text-success {
+  color: var(--success-color) !important;
+}
+
+.text-info {
+  color: var(--info-color) !important;
 }
 
 .bg-primary {
-  background-color: var(--primary-color);
+  background-color: var(--primary-color) !important;
+}
+
+.bg-primary-light {
+  background-color: var(--primary-color-light) !important;
 }
 
 .bg-secondary {
-  background-color: var(--font-color);
+  background-color: var(--secondary-color) !important;
+}
+
+.bg-danger {
+  background-color: var(--danger-color) !important;
+}
+
+.bg-warning {
+  background-color: var(--warning-color) !important;
+}
+
+.bg-success {
+  background-color: var(--success-color) !important;
+}
+
+.bg-info {
+  background-color: var(--info-color) !important;
+}
+
+.bg-nav {
+  background-color: var(--bg-color) !important;
+}
+
+.btn:hover,
+.btn-small:hover,
+.btn-large:hover {
+  background-color: var(--bg-color) !important;
+  color: var(--font-color) !important;
+  border: 1px solid var(--primary-color) !important;
+}
+
+.switch label input[type='checkbox'] + .lever {
+  background-color: var(--primary-color-light) !important;
+}
+
+.switch label input[type='checkbox']:checked + .lever {
+  background-color: var(--primary-color-light) !important;
+}
+
+.lever::after {
+  background-color: var(--primary-color) !important;
 }
