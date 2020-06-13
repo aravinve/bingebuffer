@@ -52,6 +52,7 @@ h5,
 h6 {
   font-family: 'Merriweather', serif;
   color: var(--primary-color);
+  user-select: none;
 }
 
 h3 {
@@ -222,6 +223,10 @@ form > label {
 
 .lever::after {
   background-color: var(--primary-color) !important;
+}
+
+input {
+  color: var(--secondary-color);
 }
 
 input:focus + label {

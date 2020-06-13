@@ -1,5 +1,29 @@
 {% extends 'base_layout.html' %} {% block content %}
-<h2>
-  Welcome
-</h2>
+<div class="row" style="margin-top: 1rem;">
+  <div class="col s12 l4 m4">
+    <div class="center">
+      <div class="card-panel bg-nav">
+        <h2 class="text-primary">Let's Binge Together!!!</h2>
+        <h5 class="text-secondary">
+          Create your personalized account today
+        </h5>
+        <div class="card-panel bg-nav">
+          <div style="padding: 0.5rem; margin: 0.5rem;">
+            <a class="btn bg-primary" href="{% url 'accounts:login' %}"
+              >Login</a
+            >
+          </div>
+          <div style="padding: 0.5rem; margin: 0.5rem;">
+            <a class="btn bg-primary" href="{% url 'accounts:signup' %}"
+              >Signup</a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col s12 l8 m8">
+    {% include "../components/carousel.html" %}
+  </div>
+</div>
 {% endblock %}

@@ -1,18 +1,23 @@
 {% extends 'base_layout.html' %} {% block content %}
-<div class="container">
-  <h3 class="text-secondary">Signup</h3>
-  <div class="row" style="margin-bottom: 0;">
-    <div class="col s12">
-      <form
-        action="/accounts/signup/"
-        method="post"
-        class="card-panel bg-nav text-secondary"
-      >
-        {% csrf_token %} {{form}}
-        <br />
-        <input type="submit" class="btn bg-primary" value="Signup" />
-      </form>
+<div class="row" style="margin: 0;">
+  <div class="col s12 l4 m4">
+    <div class="row" style="margin-bottom: 0;">
+      <div class="col s12">
+        <form
+          action="/accounts/signup/"
+          method="post"
+          class="card-panel bg-nav text-secondary"
+        >
+          <h3 class="text-secondary">Signup</h3>
+          {% csrf_token %} {{form}}
+          <br />
+          <input type="submit" class="btn bg-primary" value="Signup" />
+        </form>
+      </div>
     </div>
+  </div>
+  <div class="col s12 l8 m8">
+    {% include "../components/carousel.html" %}
   </div>
 </div>
 {% endblock %}
