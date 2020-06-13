@@ -1,0 +1,21 @@
+{% extends 'base_layout.html' %} {% block content %}
+
+<div class="container">
+  <h3 class="text-secondary">Login</h3>
+  <div class="row">
+    <div class="col s12">
+      <form
+        action="/accounts/login/"
+        method="post"
+        class="card-panel bg-nav text-secondary"
+      >
+        {% csrf_token %} {{form}} {% if request.GET.next %}
+        <input type="hidden" name="next" value="{{request.GET.next}}" />
+        {% endif %}
+        <input type="submit" class="btn bg-primary" value="Login" />
+      </form>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

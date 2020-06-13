@@ -1,32 +1,126 @@
 {% load static %}
 <nav>
   <div class="nav-wrapper bg-nav">
-    <a href="#" class="brand-logo" style="margin-left: 0.5rem;">
+    <a
+      href="{% url 'accounts:home' %}"
+      class="brand-logo"
+      style="margin-left: 0.5rem;"
+    >
       <img
-        src="{% static 'img/logo.png' %}"
-        style="width: 2.5rem; height: 4rem;"
+        id="bb-logo"
+        src="{% static 'img/whole-logo.png' %}"
+        style="width: 8rem; height: 4rem;"
         alt="Bingebuffer Logo"
       />
-      <span
-        class="text-secondary hide-on-med-and-down"
-        style="position: fixed; padding: 0.25rem; top: 0.1rem;"
-      >
-        INGEBUFFER
-      </span>
     </a>
     <a href="#" data-target="mobile-demo" class="sidenav-trigger text-secondary"
-      ><i class="material-icons">menu</i></a
+      ><i class="material-icons left">menu</i></a
     >
     <ul id="nav-mobile" class="right hide-on-med-and-down text-secondary">
-      <li><a href="sass.html">Sass</a></li>
-      <li><a href="badges.html">Components</a></li>
-      <li><a href="collapsible.html">JavaScript</a></li>
+      <li>
+        <div class="switch">
+          <label>
+            Off
+            <input type="checkbox" id="theme-switch" />
+            <span class="lever"></span>
+            On
+          </label>
+        </div>
+      </li>
+      {% if user.is_authenticated %}
+      <li>
+        <a href="{% url 'booking:home' %}"
+          ><i class="material-icons left">movie</i> Booking</a
+        >
+      </li>
+      <li>
+        <a href="{% url 'blogger:home' %}">
+          <i class="material-icons left">dashboard</i>
+          Blogger</a
+        >
+      </li>
+      <li>
+        <a class="dropdown-trigger" href="#!" data-target="accountsDropdown">
+          <i class="material-icons left">account_box</i></a
+        >
+      </li>
+      {% else %}
+      <li>
+        <a class="btn bg-primary" href="{% url 'accounts:login' %}">Login</a>
+      </li>
+      <li>
+        <a class="btn bg-primary" href="{% url 'accounts:signup' %}">Signup</a>
+      </li>
+      {% endif %}
     </ul>
-    <ul class="sidenav bg-primary-light text-secondary" id="mobile-demo">
-      <li><a href="sass.html">Sass</a></li>
-      <li><a href="badges.html">Components</a></li>
-      <li><a href="collapsible.html">Javascript</a></li>
-      <li><a href="mobile.html">Mobile</a></li>
+    <ul class="sidenav bg-nav" id="mobile-demo">
+      <li>
+        <div class="switch">
+          <label>
+            Off
+            <input type="checkbox" id="theme-switch-mobile" />
+            <span class="lever"></span>
+            On
+          </label>
+        </div>
+      </li>
+      {% if user.is_authenticated %}
+      <li>
+        <a class="text-secondary" href="{% url 'booking:home' %}">
+          <i class="material-icons left text-secondary">movie</i>
+
+          Booking</a
+        >
+      </li>
+      <li>
+        <a class="text-secondary" href="{% url 'blogger:home' %}">
+          <i class="material-icons left text-secondary">dashboard</i>
+
+          Blogger</a
+        >
+      </li>
+      <li>
+        <a class="text-secondary" href="#!">
+          <i class="material-icons left text-secondary">account_box</i>
+          Profile</a
+        >
+      </li>
+      <li>
+        <a class="text-secondary" href="#!">
+          <i class="material-icons left text-secondary">settings</i>Settings</a
+        >
+      </li>
+      <li class="divider"></li>
+      <li>
+        <form action="{% url 'accounts:logout' %}" method="post">
+          {% csrf_token %}
+          <button type="submit" class="btn bg-primary">Logout</button>
+        </form>
+      </li>
+      {% else %}
+      <li>
+        <a class="btn bg-primary" href="{% url 'accounts:login' %}">Login</a>
+      </li>
+      <li>
+        <a class="btn bg-primary" href="{% url 'accounts:signup' %}">Signup</a>
+      </li>
+      {% endif %}
     </ul>
   </div>
 </nav>
+
+<ul id="accountsDropdown" class="dropdown-content bg-nav">
+  <li>
+    <a href="#!">Profile</a>
+  </li>
+  <li>
+    <a href="#!"> Settings</a>
+  </li>
+  <li class="divider"></li>
+  <li>
+    <form action="{% url 'accounts:logout' %}" method="post">
+      {% csrf_token %}
+      <button type="submit" class="btn bg-primary">Logout</button>
+    </form>
+  </li>
+</ul>
