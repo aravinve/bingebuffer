@@ -1,0 +1,96 @@
+{% extends 'base_layout.html' %} {% block content %} {% load static %}
+
+<div class="container" style="margin-top: 2rem;">
+  <div class="row">
+    <a href="{% url 'booking:home'%}" class="btn bg-primary left">Back</a>
+  </div>
+  <div class="row">
+    <div class="col l6 m6 s12 center">
+      <div class="card-image">
+        {% if movie.Poster == 'N/A' %}
+        <img
+          src="{% static 'img/film-placeholder.png'%}"
+          class="poster-img"
+          alt="Movie Logo"
+        />
+        {% else %}
+        <img src="{{movie.Poster}}" class="poster-img" alt="Movie Logo" />
+        {% endif %}
+      </div>
+    </div>
+    <div class="col l6 m6 s12">
+      <h4 class="text-secondary mb-2">
+        {{movie.Title}}
+      </h4>
+      <div class="card-content mb-2">
+        <span class="badger bg-primary">
+          {{movie.Rated}}
+        </span>
+        <span class="badger bg-primary">
+          {{movie.Genre}}
+        </span>
+      </div>
+      <div class="card-content mb-1">
+        <span class="badger bg-primary">
+          {{movie.Year}}
+        </span>
+        <span class="badger bg-primary">
+          {{movie.Type}}
+        </span>
+      </div>
+      <div class="card-content mb-1">
+        {{movie.Plot}}
+      </div>
+      <div class="card-content mb-1 text-secondary">
+        Released: {{movie.Released}}
+      </div>
+      <div class="card-content mb-1 text-secondary">
+        Runtime: {{movie.Runtime}}
+      </div>
+      <div class="card-content mb-1 text-secondary">
+        {{movie.Awards}}
+      </div>
+      <div class="card-content mb-1">
+        <span class="badger bg-primary">
+          Metascore: {{movie.Metascore}}
+        </span>
+        <span class="badger bg-primary">
+          IMDB Rating: {{movie.imdbRating}}
+        </span>
+      </div>
+      <div class="card-content mb-1">
+        <span class="badger bg-primary">
+          IMDB Votes: {{movie.imdbVotes}}
+        </span>
+      </div>
+      <div class="card-content mb-1">
+        <ul class="collection">
+          <li class="collection-item bg-nav">Director: {{movie.Director}}</li>
+          <li class="collection-item bg-nav">Writer: {{movie.Writer}}</li>
+          <li class="collection-item bg-nav">Actors: {{movie.Actors}}</li>
+          <li class="collection-item bg-nav">Language: {{movie.Language}}</li>
+          <li class="collection-item bg-nav">Country: {{movie.Country}}</li>
+        </ul>
+      </div>
+      <div class="card-content mb-1">
+        <table class="table-responsive centered">
+          <thead>
+            <tr>
+              <th>Source</th>
+              <th>Score</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for rate in movie.Ratings%}
+            <tr>
+              <td>{{rate.Source}}</td>
+              <td>{{rate.Value}}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -92,6 +92,10 @@ nav,
     0 1px 5px 0 var(--shadow3) !important;
 }
 
+tr {
+  border-bottom: 1px solid var(--shadow1) !important;
+}
+
 nav ul a {
   color: var(--secondary-color) !important;
 }
@@ -236,4 +240,35 @@ input:focus + label {
 input:focus {
   border-bottom: 2px solid var(--primary-color) !important;
   box-shadow: 0 1px 0 0 var(--shadow2) !important;
+}
+
+.mb-1 {
+  margin-bottom: 1rem;
+}
+
+.mb-2 {
+  margin-bottom: 2rem;
+}
+
+.poster-content {
+  width: 200px;
+  height: 300px;
+}
+
+.badger {
+  border-radius: 6px;
+  margin: 0 0.5rem;
+  padding: 0.5rem;
+  color: #ffffff;
+}
+
+.poster-img {
+  transition: transform 0.2s;
+  cursor: pointer;
+  width: 200px;
+  height: 300px;
+}
+
+.poster-img:hover {
+  transform: scale(1.2);
 }
