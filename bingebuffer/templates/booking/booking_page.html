@@ -1,7 +1,7 @@
 {% extends 'base_layout.html' %} {% block content %} {% load static %}
 <div class="container center">
   <div class="row mt-2">
-    {%include "./blogger_controls.html" %}
+    {%include "./booking_controls.html" %}
   </div>
 </div>
 <div class="container center">
@@ -16,7 +16,7 @@
       <div class="row" id="{{movie.id}}">
         <div class="col l6 m6 s7">
           <div class="card-image">
-            <a href="{% url 'blogger:detail' id=movie.id %}">
+            <a href="{% url 'booking:detail' id=movie.id %}">
               {% if movie.Poster == 'N/A' %}
               <img
                 src="{% static 'img/film-placeholder.png'%}"

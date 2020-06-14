@@ -13,7 +13,7 @@ def signup_view(request):
         if form.is_valid():
             user = form.save()
             login(request, user)
-            return redirect('blogger:home')
+            return redirect('booking:home')
         else:
             return render(request, 'accounts/accounts_signup.html', {'form': form})
     else:
@@ -30,7 +30,7 @@ def login_view(request):
             if 'next' in request.POST:
                 return redirect(request.POST.get('next'))
             else:
-                return redirect('blogger:home')
+                return redirect('booking:home')
 
     else:
         form = AuthenticationForm()

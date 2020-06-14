@@ -5,6 +5,8 @@ app_name = 'booking'
 
 urlpatterns = [
     path('', views.booking_home, name='home'),
-    path('search/', views.booking_search, name='search'),
+    path('page/<str:dataType>/<int:page>', views.booking_page, name='page'),
     path('detail/<str:id>', views.booking_detail, name='detail'),
+    path('imdb/<str:id>', views.booking_imdb_detail, name='imdbdetail'),
+    path('search/', views.booking_search, name='search_movie'),
 ]

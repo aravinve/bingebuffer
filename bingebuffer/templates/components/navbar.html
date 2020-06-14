@@ -30,13 +30,13 @@
       {% if user.is_authenticated %}
       <li>
         <a href="{% url 'booking:home' %}"
-          ><i class="material-icons left">movie</i> Booking</a
+          ><i class="material-icons left">movie</i> Book Now</a
         >
       </li>
       <li>
-        <a href="{% url 'blogger:home' %}">
+        <a href="{% url 'dashboard:home' %}">
           <i class="material-icons left">dashboard</i>
-          Blogger</a
+          Dashboard</a
         >
       </li>
       <li>
@@ -68,15 +68,13 @@
       <li>
         <a class="text-secondary" href="{% url 'booking:home' %}">
           <i class="material-icons left text-secondary">movie</i>
-
-          Booking</a
+          Book Now</a
         >
       </li>
       <li>
-        <a class="text-secondary" href="{% url 'blogger:home' %}">
+        <a class="text-secondary" href="{% url 'dashboard:home' %}">
           <i class="material-icons left text-secondary">dashboard</i>
-
-          Blogger</a
+          Dashboard</a
         >
       </li>
       <li>
