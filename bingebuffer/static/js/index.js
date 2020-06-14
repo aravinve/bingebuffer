@@ -17,6 +17,7 @@ document.onreadystatechange = () => {
       setThemeLight();
     }
   }
+  changeActiveClass();
 };
 
 function switchTheme(e) {
@@ -48,6 +49,23 @@ function setThemeLight() {
   let imgarr = imgsrc.split('/');
   imgarr[3] = 'whole-logo.png';
   bbLogo.setAttribute('src', imgarr.join('/'));
+}
+
+function changeActiveClass() {
+  const currentActiveElement = document.querySelector('.pagination li.active');
+  const pagination = document.querySelectorAll('.pagination li a');
+  if (
+    currentActiveElement !== null &&
+    pagination !== null &&
+    currentActiveElement.children[0].href !== window.location.href
+  ) {
+    currentActiveElement.classList.remove('active');
+    pagination.forEach((page) => {
+      if (page.href === window.location.href) {
+        page.parentElement.classList.add('active');
+      }
+    });
+  }
 }
 
 toggleSwitch.addEventListener('change', switchTheme, false);

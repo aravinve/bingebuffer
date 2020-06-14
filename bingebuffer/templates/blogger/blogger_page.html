@@ -1,0 +1,55 @@
+{% extends 'base_layout.html' %} {% block content %} {% load static %}
+<div class="container center">
+  <div class="row mt-2">
+    {%include "./blogger_controls.html" %}
+  </div>
+</div>
+<div class="container center">
+  <div class="row mt-2 mb-2">
+    {%include "../components/pagination.html" %}
+  </div>
+</div>
+<div class="container">
+  <div class="row mt-2">
+    {% for movie in movieList %}
+    <div class="col l6 s12">
+      <div class="row" id="{{movie.id}}">
+        <div class="col l6 m6 s7">
+          <div class="card-image">
+            <a href="{% url 'blogger:detail' id=movie.id %}">
+              {% if movie.Poster == 'N/A' %}
+              <img
+                src="{% static 'img/film-placeholder.png'%}"
+                class="poster-img"
+                alt="Movie Logo"
+              />
+              {% else %}
+              <img
+                src="https://image.tmdb.org/t/p/w185_and_h278_bestv2/{{movie.poster_path}}"
+                class="poster-img"
+                alt="Movie Logo"
+              />
+              {% endif %}
+            </a>
+          </div>
+        </div>
+        <div class="col l6 m6 s5 bg-nav">
+          <div class="poster-content">
+            <h5 class="card-title text-secondary">{{movie.title}}</h5>
+            <p class="card-content">
+              <span class="badger bg-primary">
+                {{movie.release_date}}
+              </span>
+              <span class="badger bg-primary">
+                {{movie.vote_average}}
+              </span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+{% endblock %}

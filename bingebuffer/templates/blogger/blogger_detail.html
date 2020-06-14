@@ -1,0 +1,73 @@
+{% extends 'base_layout.html' %} {% block content %} {% load static %}
+
+<div class="container">
+  <div class="row mt-2">
+    <a
+      href="{% url 'blogger:page' dataType=dataType page=page %}"
+      class="btn bg-primary left"
+      >Back</a
+    >
+  </div>
+  <div class="row">
+    <div class="col l6 m6 s12 center">
+      <div class="card-image">
+        {% if movie.poster_path is None %}
+        <img
+          src="{% static 'img/film-placeholder.png'%}"
+          class="poster-img"
+          alt="Movie Logo"
+        />
+        {% else %}
+        <img
+          src="https://image.tmdb.org/t/p/w185_and_h278_bestv2/{{movie.poster_path}}"
+          class="poster-img"
+          alt="Movie Logo"
+        />
+        {% endif %}
+      </div>
+      <div class="card-content">
+        <a
+          href="{% url 'booking:detail' movie.imdb_id %}"
+          class="btn bg-primary"
+          >View IMDB Votes</a
+        >
+      </div>
+    </div>
+    <div class="col l6 m6 s12">
+      <h4 class="text-secondary mb-1">
+        {{movie.title}}
+      </h4>
+      <h5 class="text-secondary mb-2">
+        {{movie.tagline}}
+      </h5>
+      <div class="card-content mb-1">
+        {% for genre in movie.genres %}
+        <span class="badger bg-primary">
+          {{genre.name}}
+        </span>
+        {% endfor %}
+      </div>
+      <div class="card-content mb-1">
+        {{movie.overview}}
+      </div>
+      <div class="card-content mb-1 text-secondary">
+        Released: {{movie.release_date}}
+      </div>
+      <div class="card-content mb-1 text-secondary">
+        Runtime: {{movie.runtime}}
+      </div>
+      <div class="card-content mb-1 text-secondary">
+        {{movie.Awards}}
+      </div>
+      <div class="card-content mb-1">
+        <span class="badger bg-primary">
+          Vote Average: {{movie.vote_average}}
+        </span>
+        <span class="badger bg-primary">
+          Vote Count: {{movie.vote_count}}
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

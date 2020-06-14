@@ -229,6 +229,23 @@ form > label {
   background-color: var(--primary-color) !important;
 }
 
+.tabs .tab a {
+  color: var(--secondary-color) !important;
+}
+
+.tabs .tab a:hover,
+.tabs .tab a.active {
+  color: var(--secondary-color) !important;
+}
+
+.tabs .tab a:focus.active {
+  background-color: var(--primary-color-light) !important;
+}
+
+.tabs .indicator {
+  background-color: var(--primary-color) !important;
+}
+
 input {
   color: var(--secondary-color);
 }
@@ -242,12 +259,24 @@ input:focus {
   box-shadow: 0 1px 0 0 var(--shadow2) !important;
 }
 
+.pagination li.active {
+  background-color: var(--primary-color) !important;
+}
+
 .mb-1 {
   margin-bottom: 1rem;
 }
 
 .mb-2 {
   margin-bottom: 2rem;
+}
+
+.mt-1 {
+  margin-top: 1rem;
+}
+
+.mt-2 {
+  margin-top: 2rem;
 }
 
 .poster-content {

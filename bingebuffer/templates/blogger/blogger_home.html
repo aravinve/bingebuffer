@@ -1,5 +1,7 @@
-{% extends 'base_layout.html' %} {% block content %}
-
-<h1>Blogger</h1>
-
+{% extends 'base_layout.html' %} {% block content %} {% load static %}
+<div class="container center">
+  <div class="row mt-2">
+    {%include "./blogger_controls.html" %}
+  </div>
+</div>
 {% endblock %}
