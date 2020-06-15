@@ -1,6 +1,29 @@
 <div class="container">
   <div class="row">
     <div class="col s12">
+      <form action="{% url 'booking:search_movie' %} " method="POST">
+        {% csrf_token %}
+        <div class="row">
+          <div class="input-field col s10">
+            <i class="material-icons prefix text-secondary">search</i>
+            <input
+              type="text"
+              name="searchQuery"
+              class="input-field"
+              id="seach-query"
+              required
+            />
+            <label for="icon_prefix">Search</label>
+          </div>
+          <div class="input-field col s2">
+            <input type="submit" value="Search" class="btn bg-primary" />
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col s12">
       <div class="col s3">
         <a
           style="font-size: 0.8rem;"
@@ -33,29 +56,6 @@
           >Upcoming</a
         >
       </div>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col s12">
-      <form action="{% url 'booking:search_movie' %} " method="POST">
-        {% csrf_token %}
-        <div class="row">
-          <div class="input-field col s10">
-            <i class="material-icons prefix text-secondary">search</i>
-            <input
-              type="text"
-              name="searchQuery"
-              class="input-field"
-              id="seach-query"
-              required
-            />
-            <label for="icon_prefix">Search</label>
-          </div>
-          <div class="input-field col s2">
-            <input type="submit" value="Search" class="btn bg-primary" />
-          </div>
-        </div>
-      </form>
     </div>
   </div>
 </div>

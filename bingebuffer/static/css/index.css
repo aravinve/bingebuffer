@@ -301,3 +301,11 @@ input:focus {
 .poster-img:hover {
   transform: scale(1.2);
 }
+
+.poster-backdrop {
+  height: 100vh;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 80%;
+}

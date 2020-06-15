@@ -4,11 +4,13 @@
     {%include "./booking_controls.html" %}
   </div>
 </div>
+{% if searchBox %}
 <div class="container center">
   <div class="row mt-2 mb-2">
     {%include "../components/pagination.html" %}
   </div>
 </div>
+{% endif %}
 <div class="container">
   <div class="row mt-2">
     {% for movie in movieList %}
@@ -17,7 +19,7 @@
         <div class="col l6 m6 s7">
           <div class="card-image">
             <a href="{% url 'booking:detail' id=movie.id %}">
-              {% if movie.Poster == 'N/A' %}
+              {% if movie.poster_path is None %}
               <img
                 src="{% static 'img/film-placeholder.png'%}"
                 class="poster-img"

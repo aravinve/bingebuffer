@@ -1,0 +1,22 @@
+{% extends 'base_layout.html' %} {% block content %} {% load static %}
+<div class="poster-backdrop" style="background-image: url({{backdrop}});"></div>
+<div class="container">
+  <div class="row mt-2">
+    <a
+      href="{% url 'booking:page' dataType=dataType page=page %}"
+      class="btn bg-primary left"
+      >Back To Explore</a
+    >
+  </div>
+  <div class="row">
+    <div class="col s12">
+      <h4 class="text-secondary">
+        {{movie.title}}
+      </h4>
+      <div class="card-content mb-1 text-secondary">
+        Runtime: {{movie.runtime}}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

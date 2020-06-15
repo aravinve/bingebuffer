@@ -1,5 +1,4 @@
 {% extends 'base_layout.html' %} {% block content %} {% load static %}
-
 <div class="container">
   <div class="row mt-2">
     <a
@@ -25,11 +24,16 @@
         />
         {% endif %}
       </div>
-      <div class="card-content">
+      <div class="card-content mt-1">
         <a
           href="{% url 'booking:imdbdetail' movie.imdb_id %}"
           class="btn bg-primary"
           >View IMDB Votes</a
+        >
+      </div>
+      <div class="card-content mt-1">
+        <a href="{% url 'booking:shows' movie.imdb_id %}" class="btn bg-primary"
+          >Book Tickets</a
         >
       </div>
     </div>
