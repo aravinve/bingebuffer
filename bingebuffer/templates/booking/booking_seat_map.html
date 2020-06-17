@@ -1,0 +1,13 @@
+<div class="container">
+  {% for row in seats %}
+  <div class="row">
+    {% for seat in row %}
+    <div class="col s1 seat" id="{{seat}}">
+      <i class="text-secondary material-icons">
+        event_seat
+      </i>
+    </div>
+    {% endfor %}
+  </div>
+  {% endfor %}
+</div>

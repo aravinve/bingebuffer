@@ -111,6 +111,58 @@ nav ul a.btn {
   padding: 14px 6px;
 }
 
+.dropdown-content li > a,
+.dropdown-content li > span {
+  color: var(--primary-color) !important;
+}
+
+.text-bold {
+  font-weight: 700;
+}
+
+.datepicker-date-display {
+  background-color: var(--primary-color) !important;
+  color: var(--secondary-color) !important;
+}
+
+.datepicker-table td.is-today {
+  color: var(--secondary-color) !important;
+}
+
+.datepicker-cancel,
+.datepicker-clear,
+.datepicker-today,
+.datepicker-done {
+  color: var(--secondary-color) !important;
+}
+
+.year-text,
+.date-text {
+  color: var(--link-text-color) !important;
+}
+
+.datepicker-table td.is-selected {
+  background-color: var(--primary-color) !important;
+  color: var(--link-text-color) !important;
+}
+
+.month-prev:active,
+.month-prev:focus,
+.month-next:active,
+.month-next:focus {
+  background-color: transparent !important;
+}
+
+.month-prev svg,
+.month-next svg {
+  fill: var(--secondary-color) !important;
+}
+
+.datepicker-calendar-container,
+.datepicker-footer {
+  background-color: var(--bg-color);
+}
+
 .sidenav li > form {
   display: block;
   font-size: 14px;
@@ -209,12 +261,60 @@ form > label {
   background-color: var(--bg-color) !important;
 }
 
-.btn:hover,
-.btn-small:hover,
-.btn-large:hover {
+.btn.bg-primary:hover,
+.btn-small.bg-primary:hover,
+.btn-large.bg-primary:hover {
   background-color: var(--bg-color) !important;
   color: var(--font-color) !important;
   border: 1px solid var(--primary-color) !important;
+}
+
+.btn.bg-primary:hover,
+.btn-small.bg-primary:hover,
+.btn-large.bg-primary:hover {
+  background-color: var(--bg-color) !important;
+  color: var(--font-color) !important;
+  border: 1px solid var(--primary-color) !important;
+}
+
+.btn.bg-secondary:hover,
+.btn-small.bg-secondary:hover,
+.btn-large.bg-secondary:hover {
+  background-color: var(--bg-color) !important;
+  color: var(--font-color) !important;
+  border: 1px solid var(--secondary-color) !important;
+}
+
+.btn.bg-warning:hover,
+.btn-small.bg-warning:hover,
+.btn-large.bg-warning:hover {
+  background-color: var(--bg-color) !important;
+  color: var(--font-color) !important;
+  border: 1px solid var(--warning-color) !important;
+}
+
+.btn.bg-danger:hover,
+.btn-small.bg-danger:hover,
+.btn-large.bg-danger:hover {
+  background-color: var(--bg-color) !important;
+  color: var(--font-color) !important;
+  border: 1px solid var(--danger-color) !important;
+}
+
+.btn.bg-success:hover,
+.btn-small.bg-success:hover,
+.btn-large.bg-success:hover {
+  background-color: var(--bg-color) !important;
+  color: var(--font-color) !important;
+  border: 1px solid var(--success-color) !important;
+}
+
+.btn.bg-info:hover,
+.btn-small.bg-info:hover,
+.btn-large.bg-info:hover {
+  background-color: var(--bg-color) !important;
+  color: var(--font-color) !important;
+  border: 1px solid var(--info-color) !important;
 }
 
 .switch label input[type='checkbox'] + .lever {
@@ -263,6 +363,14 @@ input:focus {
   background-color: var(--primary-color) !important;
 }
 
+.seat {
+  cursor: pointer;
+}
+
+.seat .active {
+  color: var(--primary-color) !important;
+}
+
 .mb-1 {
   margin-bottom: 1rem;
 }
@@ -279,6 +387,10 @@ input:focus {
   margin-top: 2rem;
 }
 
+.m-1 {
+  margin: 1rem;
+}
+
 .poster-content {
   width: 200px;
   height: 300px;
@@ -286,7 +398,7 @@ input:focus {
 
 .badger {
   border-radius: 6px;
-  margin: 0 0.5rem;
+  margin: 0.3rem 0.5rem;
   padding: 0.5rem;
   color: #ffffff;
 }

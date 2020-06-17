@@ -1,0 +1,107 @@
+{% extends 'base_layout.html' %} {% block content %} {% load static %}
+<div class="row mt-2">
+  <div class="col s12 m8 l8 center">
+    {%include "./booking_seat_map.html" %}
+  </div>
+  <div class="col s12 l4 m4 center">
+    <div class="card-image">
+      {% if movie.poster_path is None %}
+      <img
+        src="{% static 'img/film-placeholder.png'%}"
+        class="poster-img"
+        alt="Movie Logo"
+      />
+      {% else %}
+      <img
+        src="https://image.tmdb.org/t/p/w185_and_h278_bestv2/{{movie.poster_path}}"
+        class="poster-img"
+        alt="Movie Logo"
+      />
+      {% endif %}
+    </div>
+    <div class="card-panel bg-nav">
+      <h5 class="card-title text-secondary">{{movie.title}}</h5>
+      <div class="row">
+        <div class="col s6">
+          <p class="text-secondary">
+            <span class="text-primary text-bold">Screen Name:</span>
+            {{screenName}}
+          </p>
+        </div>
+        <div class="col s6">
+          <p class="text-secondary">
+            <span class="text-primary text-bold">Location:</span>
+            {{screenLocation}}
+          </p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col s6">
+          <p class="text-secondary">
+            <span class="text-primary text-bold">Date: </span>{{showDate}}
+          </p>
+        </div>
+        <div class="col s6">
+          <p class="text-secondary">
+            <span class="text-primary text-bold">Showtime: </span>{{showTime}}
+          </p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col s12">
+          <p class="text-secondary">
+            <span class="text-primary text-bold">Seats: </span> {{seatsCount}}
+          </p>
+          <div id="seat-content" class="row"></div>
+        </div>
+      </div>
+      <div class="row">
+        <form action="{% url 'booking:seats' %}" method="post">
+          {% csrf_token %}
+          <input
+            type="text"
+            name="confirmScreenName"
+            id="confirm-screen-name"
+            value="{{screenName}}"
+          />
+          <input
+            type="text"
+            name="confirmScreenLocation"
+            id="screen-location"
+            value="{{screenLocation}}"
+          />
+          <input
+            type="text"
+            name="confirmShowTime"
+            id="confirm-show-time"
+            value="{{showTime}}"
+          />
+          <input
+            type="text"
+            name="confirmShowDate"
+            id="confirm-show-date"
+            value="{{showDate}}"
+          />
+          <input
+            type="text"
+            name="confirmSeats"
+            id="confirm-seats"
+            value="{{seatsCount}}"
+          />
+          <input
+            type="text"
+            name="confirmSeatNumbers"
+            id="confirm-seat-numbers"
+          />
+          <input
+            type="submit"
+            class="btn bg-primary"
+            value="Continue Booking"
+          />
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

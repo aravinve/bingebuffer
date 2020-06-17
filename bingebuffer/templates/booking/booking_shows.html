@@ -18,5 +18,58 @@
       </div>
     </div>
   </div>
+  <div class="row">
+    <div class="input-field col s2">
+      <select name="seatSelect" id="seat-selecter" required>
+        {% for s in seatCount %}
+        <option value="{{s}}">{{s}}</option>
+        {% endfor %}
+      </select>
+      <label>Seats Required</label>
+    </div>
+    <div class="input-field col s2">
+      <label>Date</label>
+      <input
+        type="text"
+        name="dateSelecter"
+        id="date-selecter"
+        class="datepicker"
+      />
+    </div>
+    <div class="col s6">
+      <form action="{% url 'booking:seats' %}" method="POST">
+        {% csrf_token %}
+        <input type="text" name="screenName" id="screen-name" />
+        <input type="text" name="screenLocation" id="screen-location" />
+        <input type="text" name="showTime" id="show-time" />
+        <input type="text" name="showDate" id="show-date" />
+        <input type="text" name="seats" id="seats" value="1" />
+        <input type="submit" class="btn bg-primary" value="Continue Booking" />
+      </form>
+    </div>
+  </div>
+  <div class="row">
+    {% for screen in screens %}
+    <div class="row">
+      <div class="col s12 m6 l6">
+        <h5 class="text-secondary">
+          {{screen.screen_name}}
+        </h5>
+        <div class="text-secondary">
+          {{screen.screen_location}}
+        </div>
+      </div>
+      <div class="col s12 m6 l6">
+        <div class="row" id="{{screen.screen_name}}/{{screen.screen_location}}">
+          {% for show in shows %}
+          <div class="btn bg-primary show-time col s4 m-1">
+            {{show.show_time}}
+          </div>
+          {% endfor%}
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
 </div>
 {% endblock %}
