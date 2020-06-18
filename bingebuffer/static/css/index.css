@@ -111,9 +111,19 @@ nav ul a.btn {
   padding: 14px 6px;
 }
 
-.dropdown-content li > a,
+.dropdown-content {
+  background-color: var(--bg-color) !important;
+}
+
 .dropdown-content li > span {
-  color: var(--primary-color) !important;
+  color: var(--secondary-color) !important;
+}
+
+#toast-container {
+  top: auto !important;
+  right: auto !important;
+  bottom: 10%;
+  left: 7%;
 }
 
 .text-bold {
@@ -227,6 +237,10 @@ form > label {
 
 .text-info {
   color: var(--info-color) !important;
+}
+
+.text-white {
+  color: var(--link-text-color) !important;
 }
 
 .bg-primary {

@@ -56,47 +56,44 @@
         </div>
       </div>
       <div class="row">
-        <form action="{% url 'booking:seats' %}" method="post">
+        <form action="{% url 'booking:payment' %}" method="post">
           {% csrf_token %}
           <input
-            type="text"
+            type="hidden"
             name="confirmScreenName"
             id="confirm-screen-name"
             value="{{screenName}}"
           />
           <input
-            type="text"
+            type="hidden"
             name="confirmScreenLocation"
             id="screen-location"
             value="{{screenLocation}}"
           />
           <input
-            type="text"
+            type="hidden"
             name="confirmShowTime"
             id="confirm-show-time"
             value="{{showTime}}"
           />
           <input
-            type="text"
+            type="hidden"
             name="confirmShowDate"
             id="confirm-show-date"
             value="{{showDate}}"
           />
           <input
-            type="text"
+            type="hidden"
             name="confirmSeats"
             id="confirm-seats"
             value="{{seatsCount}}"
           />
-          <input
-            type="text"
-            name="confirmSeatNumbers"
-            id="confirm-seat-numbers"
-          />
+          <div style="display: none;">{{seatSelectionForm}}</div>
           <input
             type="submit"
             class="btn bg-primary"
             value="Continue Booking"
+            id="seat-continue-booking-btn"
           />
         </form>
       </div>

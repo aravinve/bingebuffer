@@ -5,6 +5,7 @@ import requests
 import string
 import datetime
 from .models import Booking
+from . import forms
 # Create your views here.
 
 @login_required(login_url="/accounts/login")
@@ -71,21 +72,38 @@ def booking_shows(request, movieId):
         {'screen_name': 'Screen 4', 'screen_location': 'New York'},
         {'screen_name': 'Screen 5', 'screen_location': 'Dubai'}
     ]
-    return render(request, 'booking/booking_shows.html', {'movie': movieData, 'backdrop': 'https://image.tmdb.org/t/p/original/{}'.format(movieData.get('backdrop_path')), 'page': page, 'dataType': dataType, 'shows': SHOWS, 'screens': SCREENS, 'seatCount': range(11)[1:11]});
+    form = forms.ShowSelection()
+    return render(request, 'booking/booking_shows.html', {'movie': movieData, 'backdrop': 'https://image.tmdb.org/t/p/original/{}'.format(movieData.get('backdrop_path')), 'page': page, 'dataType': dataType, 'shows': SHOWS, 'screens': SCREENS, 'seatCount': range(11)[1:11], 'isFormError': False, 'errorMessages': None, 'form': form});
 
-
+@login_required(login_url="/accounts/login")
 def booking_seat_selection(request):
     if request.method == 'POST':
-        showTime = request.POST['showTime']
-        seatsCount = request.POST['seats']
-        screenName = request.POST['screenName']
-        screenLocation = request.POST['screenLocation']
-        showDate = request.POST['showDate']
-        seats = []
-        for i in list(string.ascii_uppercase)[:10]:
-            row = []
-            for j in range(10):
-                row.append('{}{}'.format(i,j+1))
-            seats.append(row)
-        movieData = request.session.get('movieData')
-        return render(request, 'booking/booking_seat_selection.html', {'seats': seats, 'movie': movieData, 'seatsCount': seatsCount, 'showTime': showTime, 'screenName': screenName, 'screenLocation': screenLocation, 'showDate': showDate})
+        form = forms.ShowSelection(request.POST)
+        seatSelectionForm = forms.SeatSelection()
+        if form.is_valid():
+            showTime = request.POST['show_time']
+            seatsCount = request.POST['seats_count']
+            screenName = request.POST['screen_name']
+            screenLocation = request.POST['screen_location']
+            showDate = request.POST['show_date']
+            seats = []
+            for i in list(string.ascii_uppercase)[:10]:
+                row = []
+                for j in range(10):
+                    row.append('{}{}'.format(i,j+1))
+                seats.append(row)
+            movieData = request.session.get('movieData')
+            return render(request, 'booking/booking_seat_selection.html', {'seats': seats, 'movie': movieData, 'seatsCount': seatsCount, 'showTime': showTime, 'screenName': screenName, 'screenLocation': screenLocation, 'showDate': showDate, 'seatSelectionForm': seatSelectionForm})
+
+
+@login_required(login_url="/accounts/login")
+def booking_payment(request):
+    if request.method == 'POST':
+        confirmScreenName = request.POST['confirmScreenName']
+        confirmScreenLocation = request.POST['confirmScreenLocation']
+        confirmShowTime = request.POST['confirmShowTime']
+        confirmShowDate = request.POST['confirmShowDate']
+        confirmSeats = request.POST['confirmSeats']
+        confirmSeatNumbers = request.POST['seats']
+        return render(request, 'booking/booking_payment.html', {'confirmScreenLocation': confirmScreenLocation, 'confirmScreenName': confirmScreenName, 'confirmShowTime': confirmShowTime, 'confirmShowDate': confirmShowDate, 'confirmSeats': confirmSeats, 'confirmSeatNumbers': confirmSeatNumbers})
+    

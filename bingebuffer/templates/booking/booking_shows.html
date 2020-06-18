@@ -21,6 +21,7 @@
   <div class="row">
     <div class="input-field col s2">
       <select name="seatSelect" id="seat-selecter" required>
+        <option disabled selected value> Select Seat </option>
         {% for s in seatCount %}
         <option value="{{s}}">{{s}}</option>
         {% endfor %}
@@ -36,16 +37,24 @@
         class="datepicker"
       />
     </div>
-    <div class="col s6">
+    <div class="col s6 right">
       <form action="{% url 'booking:seats' %}" method="POST">
         {% csrf_token %}
-        <input type="text" name="screenName" id="screen-name" />
-        <input type="text" name="screenLocation" id="screen-location" />
-        <input type="text" name="showTime" id="show-time" />
-        <input type="text" name="showDate" id="show-date" />
-        <input type="text" name="seats" id="seats" value="1" />
-        <input type="submit" class="btn bg-primary" value="Continue Booking" />
+        <div style="display: none;">
+          {{form}}
+        </div>
+        <input
+          type="submit"
+          class="btn bg-primary right"
+          value="Continue Booking"
+          id="show-continue-booking-btn"
+        />
       </form>
+      {% if isFormError %} {% for message in errorMessages %}
+      <div class="errorlist">
+        <li>{{message}}</li>
+      </div>
+      {% endfor %} {% endif %}
     </div>
   </div>
   <div class="row">
@@ -62,7 +71,7 @@
       <div class="col s12 m6 l6">
         <div class="row" id="{{screen.screen_name}}/{{screen.screen_location}}">
           {% for show in shows %}
-          <div class="btn bg-primary show-time col s4 m-1">
+          <div class="btn bg-nav text-secondary show-time col s4 m-1">
             {{show.show_time}}
           </div>
           {% endfor%}
