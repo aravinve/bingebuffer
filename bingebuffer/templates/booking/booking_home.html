@@ -2,6 +2,13 @@
 <div class="container center">
   <div class="row mt-2">
     {%include "./booking_controls.html" %}
+    <div class="row mt-2">
+      {% if isError %}
+      <ul class="errorlist">
+        <li>{{errorMessage}}</li>
+      </ul>
+      {%endif%}
+    </div>
   </div>
 </div>
 {% endblock %}

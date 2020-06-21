@@ -18,7 +18,7 @@
   --hint-color: #9e9e9e;
   --shadow1: rgba(0, 0, 0, 0.14);
   --shadow2: rgba(0, 0, 0, 0.12);
-  --shadow3: rgba(0, 0, 0, 0.2);
+  --shadow3: rgba(0, 0, 0, 0.3);
 }
 
 [data-theme='dark'] {
@@ -171,6 +171,10 @@ nav ul a.btn {
 .datepicker-calendar-container,
 .datepicker-footer {
   background-color: var(--bg-color);
+}
+
+.datepicker-table td.is-disabled {
+  color: var(--shadow3) !important;
 }
 
 .sidenav li > form {
@@ -434,4 +438,12 @@ input:focus {
   background-position: center;
   background-repeat: no-repeat;
   opacity: 80%;
+}
+
+.dash {
+  border: none !important;
+}
+
+.dashside {
+  border-bottom: none !important;
 }

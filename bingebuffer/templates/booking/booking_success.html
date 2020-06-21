@@ -15,9 +15,9 @@
       </h6>
       <div class="card-panel bg-nav">
         <div class="row mt-1 mb-1">
-          <div class="col s3">
+          <div class="col l3 m3 s12">
             <div class="card-image">
-              {% if moviePoster is None %}
+              {% if booking_meta.movie_poster is None %}
               <img
                 src="{% static 'img/film-placeholder.png'%}"
                 class="poster-img"
@@ -25,14 +25,14 @@
               />
               {% else %}
               <img
-                src="https://image.tmdb.org/t/p/w185_and_h278_bestv2/{{moviePoster}}"
+                src="https://image.tmdb.org/t/p/w185_and_h278_bestv2/{{booking_meta.movie_poster}}"
                 class="poster-img"
                 alt="Movie Logo"
               />
               {% endif %}
             </div>
           </div>
-          <div class="col s9">
+          <div class="col l9 m9 s12">
             <table class="table-responsive centered">
               <thead>
                 <tr>
@@ -47,13 +47,13 @@
               </thead>
               <tbody>
                 <tr>
-                  <td>{{confirmMovieName}}</td>
-                  <td>{{confirmScreenName}}</td>
-                  <td>{{confirmScreenLocation}}</td>
-                  <td>{{confirmShowDate}}</td>
-                  <td>{{confirmShowTime}}</td>
-                  <td>{{confirmSeats}}</td>
-                  <td>{{confirmSeatNumbers}}</td>
+                  <td>{{booking_meta.movie_name}}</td>
+                  <td>{{booking_meta.screen_name}}</td>
+                  <td>{{booking_meta.screen_location}}</td>
+                  <td>{{booking_meta.show_date}}</td>
+                  <td>{{booking_meta.show_time}}</td>
+                  <td>{{booking_meta.seats_count}}</td>
+                  <td>{{booking_meta.seats}}</td>
                 </tr>
               </tbody>
             </table>

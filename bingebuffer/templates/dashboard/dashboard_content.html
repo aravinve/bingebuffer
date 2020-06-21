@@ -1,0 +1,56 @@
+{% extends 'dashboard/dashboard_home.html' %} {% block dashboardcontent %}
+<div class="container">
+  {% load static %}
+  <ul class="collection dash">
+    {% for result in results %}
+    <li class="collection-item bg-nav">
+      <div class="row mt-1 mb-1">
+        <div class="col l4 m4 s12">
+          <div class="card-image">
+            {% if result.movie_poster is None %}
+            <img
+              src="{% static 'img/film-placeholder.png'%}"
+              class="poster-img"
+              alt="Movie Logo"
+            />
+            {% else %}
+            <img
+              src="https://image.tmdb.org/t/p/w185_and_h278_bestv2/{{result.movie_poster}}"
+              class="poster-img"
+              alt="Movie Logo"
+            />
+            {% endif %}
+          </div>
+        </div>
+        <div class="col l8 m8 s12">
+          <ul class="collection">
+            <li class="collection-item bg-nav">
+              Movie Name: {{result.movie_name}}
+            </li>
+            <li class="collection-item bg-nav">
+              Screen Name: {{result.screen_name}}
+            </li>
+            <li class="collection-item bg-nav">
+              Location: {{result.screen_location}}
+            </li>
+            <li class="collection-item bg-nav">Date: {{result.show_date}}</li>
+            <li class="collection-item bg-nav">
+              Show Time: {{result.show_time}}
+            </li>
+            <li class="collection-item bg-nav">Seats: {{result.seats}}</li>
+          </ul>
+          <div class="row mt-2">
+            <a href="{% url 'booking:home' %}" class="btn bg-primary left"
+              >Print Ticket</a
+            >
+            <a href="{% url 'booking:home' %}" class="btn bg-primary right"
+              >Send Confirmation</a
+            >
+          </div>
+        </div>
+      </div>
+    </li>
+    {% endfor %}
+  </ul>
+</div>
+{% endblock %}

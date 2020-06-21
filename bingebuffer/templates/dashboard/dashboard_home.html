@@ -1,3 +1,32 @@
 {% extends 'base_layout.html' %} {% block content %} {% load static %}
-<h5>Dashboard</h5>
+
+<div class="row mt-2">
+  <div class="col l2 m2 s12">
+    <ul class="collection dash">
+      <li class="collection-item bg-nav dashside">
+        <a href="{% url 'dashboard:feed' %}" class="bg-nav text-secondary">
+          Feed
+        </a>
+      </li>
+      <li class="collection-item bg-nav dashside">
+        <a href="{% url 'dashboard:profile' %}" class="bg-nav text-secondary">
+          Profile
+        </a>
+      </li>
+      <li class="collection-item bg-nav dashside">
+        <a href="{% url 'dashboard:bookings' %}" class="bg-nav text-secondary">
+          My Bookings
+        </a>
+      </li>
+      <li class="collection-item bg-nav dashside">
+        <a href="{% url 'dashboard:settings' %}" class="bg-nav text-secondary">
+          Settings
+        </a>
+      </li>
+    </ul>
+  </div>
+  <div class="col l10 m10 s12">
+    {% block dashboardcontent %} {% endblock %}
+  </div>
+</div>
 {% endblock %}

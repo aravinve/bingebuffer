@@ -10,13 +10,13 @@ class Bookingmeta(models.Model):
     show_time = models.CharField(max_length=10)
     show_date = models.CharField(max_length=20)
     movie_name = models.CharField(max_length=100)
-    price = models.FloatField()
+    movie_poster = models.CharField(max_length=500)
+    price = models.IntegerField()
     seats_count = models.IntegerField()
     seats = models.CharField(max_length=30)
     
-
     def __str__(self):
-        return self.transaction_id
+        return str(self.transaction_id)
 
 
 class Booking(models.Model):
@@ -27,4 +27,4 @@ class Booking(models.Model):
     booking_meta = models.ForeignKey(Bookingmeta, on_delete=models.CASCADE, default=None)
     
     def __str__(self):
-        return self.id;
+        return str(self.id);

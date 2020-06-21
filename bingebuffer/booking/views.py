@@ -1,16 +1,18 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 import requests
-import string
+import random, string
 import datetime
-from .models import Booking
+from .models import Booking, Bookingmeta
 from . import forms
+import uuid
+
 # Create your views here.
 
 @login_required(login_url="/accounts/login")
 def booking_home(request):
-    return render(request, 'booking/booking_home.html')
+    return render(request, 'booking/booking_home.html', {'isError': False, 'errorMessage': ''})
 
 @login_required(login_url="/accounts/login")
 def booking_page(request, page=1, dataType='now_playing'):
@@ -94,16 +96,43 @@ def booking_seat_selection(request):
                 seats.append(row)
             movieData = request.session.get('movieData')
             return render(request, 'booking/booking_seat_selection.html', {'seats': seats, 'movie': movieData, 'seatsCount': seatsCount, 'showTime': showTime, 'screenName': screenName, 'screenLocation': screenLocation, 'showDate': showDate, 'seatSelectionForm': seatSelectionForm})
+    else:
+        return redirect('booking:home')
 
 
 @login_required(login_url="/accounts/login")
 def booking_payment(request):
     if request.method == 'POST':
-        confirmScreenName = request.POST['confirmScreenName']
-        confirmScreenLocation = request.POST['confirmScreenLocation']
-        confirmShowTime = request.POST['confirmShowTime']
-        confirmShowDate = request.POST['confirmShowDate']
-        confirmSeats = request.POST['confirmSeats']
-        confirmSeatNumbers = request.POST['seats']
-        return render(request, 'booking/booking_payment.html', {'confirmScreenLocation': confirmScreenLocation, 'confirmScreenName': confirmScreenName, 'confirmShowTime': confirmShowTime, 'confirmShowDate': confirmShowDate, 'confirmSeats': confirmSeats, 'confirmSeatNumbers': confirmSeatNumbers})
-    
+        form = forms.SeatSelection(request.POST)
+        if form.is_valid():
+            confirmScreenName = request.POST['confirmScreenName']
+            confirmScreenLocation = request.POST['confirmScreenLocation']
+            confirmShowTime = request.POST['confirmShowTime']
+            confirmShowDate = request.POST['confirmShowDate']
+            confirmMovieName = request.POST['confirmMovieName']
+            confirmSeats = request.POST['confirmSeats']
+            confirmSeatNumbers = request.POST['seats']
+            if confirmScreenName!='' and confirmScreenLocation!= '' and confirmShowTime !='' and confirmMovieName!= '' and confirmShowDate != '' and confirmSeats != '' and confirmSeatNumbers != '':
+                movieData = request.session.get('movieData')
+                movie_poster = movieData.get('poster_path')
+                ticket_price = int(confirmSeats) * 10
+                transaction_id = uuid.uuid4()
+                booking_meta = Bookingmeta(transaction_id=transaction_id,screen_name=confirmScreenName, screen_location=confirmScreenLocation, show_time=confirmShowTime, show_date=confirmShowDate, movie_name=confirmMovieName, movie_poster=movie_poster, price=ticket_price, seats_count=confirmSeats, seats=confirmSeatNumbers)
+                booking_meta.save();
+                secret_key = ''.join(random.choice(string.ascii_uppercase + string.ascii_lowercase + string.digits) for _ in range(16))
+                booking = Booking(user=request.user, secret_key=secret_key,booking_meta=booking_meta)
+                booking.save()
+                request.session['transaction'] = str(transaction_id);
+                request.session['secret_key'] = str(secret_key);
+                return redirect('booking:success')
+            else:
+                return render(request, 'booking/booking_home.html', {'isError': True, errorMessage: 'Booking Failed!'})
+    else:
+        return redirect('booking:home')    
+
+@login_required(login_url="/accounts/login")
+def booking_success(request):
+    transaction_id = request.session.get('transaction')
+    secret_key = request.session.get('secret_key')
+    booking_meta = Bookingmeta.objects.get(pk=transaction_id)
+    return render(request, 'booking/booking_success.html', {'booking_meta': booking_meta, 'secret_key': secret_key})    

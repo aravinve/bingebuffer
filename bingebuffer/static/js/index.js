@@ -38,6 +38,9 @@ document.onreadystatechange = () => {
     }
   }
   changeActiveClass();
+  if (dateSelecter !== null) {
+    setLimitToDateSelector();
+  }
 };
 
 function switchTheme(e) {
@@ -88,6 +91,24 @@ function changeActiveClass() {
   }
 }
 
+function setLimitToDateSelector() {
+  const dtToday = new Date();
+  let month = dtToday.getMonth() + 1;
+  let day = dtToday.getDate();
+  let maxDay = dtToday.getDate() + 10;
+  let year = dtToday.getFullYear();
+  if (month < 10) month = '0' + month.toString();
+  if (day < 10) day = '0' + day.toString();
+  if (maxDay < 10) maxDay = '0' + maxDay.toString();
+  let minDate = year + '-' + month + '-' + day;
+  let maxDate = year + '-' + month + '-' + maxDay;
+  dateSelecter.setAttribute('min', minDate);
+  dateSelecter.setAttribute('max', maxDate);
+  var elems = document.querySelectorAll('.datepicker');
+  var options = { minDate: new Date(minDate), maxDate: new Date(maxDate) };
+  M.Datepicker.init(elems, options);
+}
+
 function selectSeat(e) {
   const element = e.target;
   const totalSeatCount = Number(confirmSeats.value);
@@ -136,7 +157,10 @@ function selectSeat(e) {
     );
     confirmSeatNumbersInput.value = updateSeatNumbers.join(',');
   } else {
-    alert('Seat Limit Reached!');
+    M.toast({
+      html: 'Seat Limit Reached!',
+      classes: 'bg-danger text-white',
+    });
   }
 }
 

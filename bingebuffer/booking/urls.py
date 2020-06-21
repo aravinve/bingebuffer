@@ -12,4 +12,5 @@ urlpatterns = [
     path('shows/<str:movieId>', views.booking_shows, name='shows'),
     path('seatselection/', views.booking_seat_selection, name='seats'),
     path('payment/', views.booking_payment, name='payment'),
+    path('success/', views.booking_success, name='success'),
 ]
