@@ -1,0 +1,15 @@
+{% extends 'base_layout.html' %} {% block content %}
+<div class="row" style="margin-top: 1rem;">
+  <div class="col s12 l4 m4">
+    <h4 class="text-secondary">
+      Please Confirm Your Email To Complete The Registration.
+    </h4>
+    <div style="padding: 0.5rem; margin: 0.5rem;">
+      <a class="btn bg-primary" href="{% url 'accounts:login' %}">Login</a>
+    </div>
+  </div>
+  <div class="col s12 l8 m8">
+    {% include "../components/carousel.html" %}
+  </div>
+</div>
+{% endblock %}
