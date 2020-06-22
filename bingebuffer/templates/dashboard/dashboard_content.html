@@ -40,7 +40,9 @@
             <li class="collection-item bg-nav">Seats: {{result.seats}}</li>
           </ul>
           <div class="row mt-2">
-            <a href="{% url 'booking:home' %}" class="btn bg-primary left"
+            <a
+              href="{% url 'dashboard:pdf' id=result.transaction_id %}"
+              class="btn bg-primary left"
               >Print Ticket</a
             >
             <a href="{% url 'booking:home' %}" class="btn bg-primary right"

@@ -9,4 +9,5 @@ urlpatterns = [
     path('profile/', views.dashboard_profile, name='profile'),
     path('bookings/', views.dashboard_bookings, name='bookings'),
     path('settings/', views.dashboard_settings, name='settings'),
+    path('bookings/pdf/<str:id>', views.dashboard_ticket_pdf, name='pdf'),
 ]
