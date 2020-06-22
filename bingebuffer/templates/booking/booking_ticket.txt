@@ -1,0 +1,10 @@
+Ticket Confirmation
+
+
+Secret Key: {{secret_key}}
+
+Movie Name      : {{booking_meta.movie_name}}
+Screen          : {{booking_meta.screen_name}}
+Date            : {{booking_meta.show_date}}
+Showtime        : {{booking_meta.show_time}}
+Seats           : {{booking_meta.seats}}

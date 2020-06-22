@@ -7,6 +7,10 @@ import datetime
 from .models import Booking, Bookingmeta
 from . import forms
 import uuid
+from django.core.mail import EmailMultiAlternatives
+from django.template.loader import render_to_string
+from django.contrib.auth.models import User
+
 
 # Create your views here.
 
@@ -122,6 +126,7 @@ def booking_payment(request):
                 secret_key = ''.join(random.choice(string.ascii_uppercase + string.ascii_lowercase + string.digits) for _ in range(16))
                 booking = Booking(user=request.user, secret_key=secret_key,booking_meta=booking_meta)
                 booking.save()
+                send_ticket_mail(username=request.user, secret_key=secret_key,booking_meta=booking_meta)
                 request.session['transaction'] = str(transaction_id);
                 request.session['secret_key'] = str(secret_key);
                 return redirect('booking:success')
@@ -136,3 +141,24 @@ def booking_success(request):
     secret_key = request.session.get('secret_key')
     booking_meta = Bookingmeta.objects.get(pk=transaction_id)
     return render(request, 'booking/booking_success.html', {'booking_meta': booking_meta, 'secret_key': secret_key})    
+
+
+def send_ticket_mail(username, secret_key, booking_meta):
+        mail_subject = 'Bingebuffer: Ticket Confirmation {} '.format(booking_meta.movie_name)
+        user = User.objects.filter(is_active=True).exclude(email='').values_list('email', flat=True)
+        message = render_to_string('booking/booking_ticket.html', {
+            'user': username,
+            'secret_key': secret_key,
+            'booking_meta': booking_meta
+        })
+        to_email = user
+        subject, from_email, to = mail_subject, 'bingebufferin@gmail.com', to_email
+        text_content = render_to_string('booking/booking_ticket.txt', {
+            'user': username,
+            'secret_key': secret_key,
+            'booking_meta': booking_meta
+        })
+        msg = EmailMultiAlternatives(subject, text_content, from_email, to)
+        msg.attach_alternative(message, "text/html")
+        msg.content_subtype = "html"
+        msg.send()

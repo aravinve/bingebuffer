@@ -1,0 +1,58 @@
+{% load static %} Hi {{user}},
+
+<h5 style="font-size: 1.5rem; color: #0052cc;">Ticket Confirmation</h5>
+<p style="font-size: 1rem; color: #172b4d;">
+  Show Secret Key at the Screen entrance and View Booking Details Below
+</p>
+<div style="display: flex;">
+  <div>
+    {% if booking_meta.movie_poster is None %}
+    <img
+      src="{% static 'img/film-placeholder.png'%}"
+      style="width: 200px; height: 300px;"
+      alt="Movie Logo"
+    />
+    {% else %}
+    <img
+      src="https://image.tmdb.org/t/p/w185_and_h278_bestv2/{{booking_meta.movie_poster}}"
+      style="width: 200px; height: 300px;"
+      alt="Movie Logo"
+    />
+    {% endif %}
+  </div>
+  <div style="padding-left: 5rem;">
+    <h6 style="font-size: 1rem; color: #172b4d;">Secret Key: {{secret_key}}</h6>
+    <table style="border-collapse: collapse; width: 100%;">
+      <thead>
+        <tr>
+          <th style="padding: 8px; border-bottom: 1px solid #ddd;">
+            Movie Name
+          </th>
+          <th style="padding: 8px; border-bottom: 1px solid #ddd;">Screen</th>
+          <th style="padding: 8px; border-bottom: 1px solid #ddd;">Date</th>
+          <th style="padding: 8px; border-bottom: 1px solid #ddd;">Showtime</th>
+          <th style="padding: 8px; border-bottom: 1px solid #ddd;">Seats</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="text-align: center;">
+          <td style="padding: 8px; border-bottom: 1px solid #ddd;">
+            {{booking_meta.movie_name}}
+          </td>
+          <td style="padding: 8px; border-bottom: 1px solid #ddd;">
+            {{booking_meta.screen_name}}
+          </td>
+          <td style="padding: 8px; border-bottom: 1px solid #ddd;">
+            {{booking_meta.show_date}}
+          </td>
+          <td style="padding: 8px; border-bottom: 1px solid #ddd;">
+            {{booking_meta.show_time}}
+          </td>
+          <td style="padding: 8px; border-bottom: 1px solid #ddd;">
+            {{booking_meta.seats}}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
