@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseRedirect
 from booking.models import Booking, Bookingmeta
@@ -7,6 +7,10 @@ import io
 from django.http import FileResponse
 from reportlab.platypus import SimpleDocTemplate
 from reportlab.platypus.tables import Table
+from . import forms
+from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserChangeForm
+from .models import Userprofile
 
 # Create your views here.
 @login_required(login_url="/accounts/login")
@@ -21,7 +25,43 @@ def dashboard_feed(request):
 
 @login_required(login_url="/accounts/login")
 def dashboard_profile(request):
-    return render(request, 'dashboard/dashboard_profile.html')
+    if request.method == 'POST':
+        editProfileForm = forms.EditProfileForm(request.POST, instance=request.user)
+        userprofile = Userprofile.objects.get(user=request.user)
+        if userprofile is None:
+            userProfileForm = forms.UserProfileForm()
+        else:
+            initialData = {'nickname': userprofile.nickname, 'date_of_birth': userprofile.date_of_birth, 'badge': userprofile.badge}
+            userProfileForm = forms.UserProfileForm(initial=initialData)
+        if editProfileForm.is_valid():
+            editProfileForm.save()
+            return render(request, 'dashboard/dashboard_profile.html', {'editProfileForm': editProfileForm, 'userProfileForm': userProfileForm})
+        else:
+            return render(request, 'dashboard/dashboard_profile.html', {'editProfileForm': editProfileForm, 'userProfileForm': userProfileForm})
+           
+    else:
+        editProfileForm = forms.EditProfileForm(instance=request.user)
+        userprofile = Userprofile.objects.get(user=request.user)
+        if userprofile is None:
+            userProfileForm = forms.UserProfileForm()
+        else:
+            initialData = {'nickname': userprofile.nickname, 'date_of_birth': userprofile.date_of_birth, 'badge': userprofile.badge}
+            userProfileForm = forms.UserProfileForm(initial=initialData)
+        return render(request, 'dashboard/dashboard_profile.html', {'editProfileForm': editProfileForm, 'userProfileForm': userProfileForm})
+
+@login_required(login_url="/accounts/login")
+def dashboard_userprofile(request):
+    if request.method == 'POST':
+        userProfileForm = forms.UserProfileForm(request.POST, instance=request.user)
+        editProfileForm = forms.EditProfileForm(instance=request.user)
+        if userProfileForm.is_valid():
+            userprofile = Userprofile(user=request.user, id=request.user, nickname=request.POST['nickname'], date_of_birth=request.POST['date_of_birth'], badge=request.POST['badge'])
+            userprofile.save()
+            return render(request, 'dashboard/dashboard_profile.html', {'userProfileForm': userProfileForm, 'editProfileForm': editProfileForm})
+        else:
+            return render(request, 'dashboard/dashboard_profile.html', {'userProfileForm': userProfileForm, 'editProfileForm': editProfileForm})
+    else:
+        return redirect('dashboard:profile')
 
 
 @login_required(login_url="/accounts/login")

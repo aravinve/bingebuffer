@@ -145,7 +145,7 @@ def booking_success(request):
 
 def send_ticket_mail(username, secret_key, booking_meta):
         mail_subject = 'Bingebuffer: Ticket Confirmation {} '.format(booking_meta.movie_name)
-        user = User.objects.filter(is_active=True).exclude(email='').values_list('email', flat=True)
+        user = User.objects.filter(username=username, is_active=True).exclude(email='').values_list('email', flat=True)
         message = render_to_string('booking/booking_ticket.html', {
             'user': username,
             'secret_key': secret_key,
