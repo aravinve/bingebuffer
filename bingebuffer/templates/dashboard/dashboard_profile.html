@@ -1,9 +1,9 @@
 {% extends 'dashboard/dashboard_home.html' %} {% block dashboardcontent %}
-<h3>Profile</h3>
+<h3 class="text-secondary">My Profile</h3>
 <form action="{% url 'dashboard:profile' %} " method="POST">
   <div class="row">
     <h5 class="col l9 m9 s12">
-      Basic Details
+      Primary Profile Details
     </h5>
     <input
       type="submit"
@@ -17,7 +17,7 @@
 <form action="{% url 'dashboard:userprofile' %} " method="POST">
   <div class="row">
     <h5 class="col l9 m9 s12">
-      User Profile Settings
+      User Profile Details
     </h5>
     <input
       type="submit"

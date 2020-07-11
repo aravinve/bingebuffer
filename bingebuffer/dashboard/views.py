@@ -9,13 +9,14 @@ from reportlab.platypus import SimpleDocTemplate
 from reportlab.platypus.tables import Table
 from . import forms
 from django.contrib.auth.models import User
-from django.contrib.auth.forms import UserChangeForm
+from django.contrib.auth.forms import UserChangeForm, PasswordChangeForm
+from django.contrib.auth import update_session_auth_hash
 from .models import Userprofile
 
 # Create your views here.
 @login_required(login_url="/accounts/login")
 def dashboard_home(request):
-    return render(request, 'dashboard/dashboard_home.html')
+    return render(request, 'dashboard/dashboard_home.html', {'isHome': True})
 
 
 @login_required(login_url="/accounts/login")
@@ -93,3 +94,17 @@ def dashboard_ticket_pdf(request, id):
     elements.append(table)
     doc.build(elements) 
     return response
+
+@login_required(login_url="/accounts/login")
+def dashboard_password(request):
+    if request.method == 'POST':
+        form = PasswordChangeForm(data=request.POST, user=request.user)
+        if form.is_valid():
+            form.save()
+            update_session_auth_hash(request, form.user)
+            return redirect('dashboard:home')
+        else:
+            return render(request, 'dashboard/dashboard_passwordchange.html', {'form': form})
+    else:
+        form = PasswordChangeForm(user=request.user)
+        return render(request, 'dashboard/dashboard_passwordchange.html', {'form': form})

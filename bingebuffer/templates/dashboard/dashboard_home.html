@@ -5,12 +5,12 @@
     <ul class="collection dash">
       <li class="collection-item bg-nav dashside">
         <a href="{% url 'dashboard:feed' %}" class="bg-nav text-secondary">
-          Feed
+          Binge Feed
         </a>
       </li>
       <li class="collection-item bg-nav dashside">
         <a href="{% url 'dashboard:profile' %}" class="bg-nav text-secondary">
-          Profile
+          My Profile
         </a>
       </li>
       <li class="collection-item bg-nav dashside">
@@ -26,7 +26,16 @@
     </ul>
   </div>
   <div class="col l10 m10 s12">
-    {% block dashboardcontent %} {% endblock %}
+    {% block dashboardcontent %} {% endblock %} {% if isHome %}
+    <div class="card-panel bg-nav text-secondary center">
+      <h4 class="text-primary">
+        Welcome to Dashboard !!
+      </h4>
+      <h6 class="text-secondary">
+        Choose the required settings from the menu
+      </h6>
+    </div>
+    {% endif %}
   </div>
 </div>
 {% endblock %}
