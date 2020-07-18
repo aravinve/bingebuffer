@@ -279,6 +279,10 @@ form > label {
   background-color: var(--bg-color) !important;
 }
 
+.btn-flat {
+  color: var(--bg-color) !important;
+}
+
 .btn.bg-primary:hover,
 .btn-small.bg-primary:hover,
 .btn-large.bg-primary:hover {
@@ -377,6 +381,36 @@ input:focus {
   box-shadow: 0 1px 0 0 var(--shadow2) !important;
 }
 
+textarea {
+  color: var(--font-color);
+}
+
+.input-field textarea:focus + label {
+  color: var(--primary-color) !important;
+}
+
+.row .input-field textarea:focus {
+  border-bottom: 2px solid var(--primary-color) !important;
+  box-shadow: 0 1px 0 0 var(--shadow2) !important;
+}
+
+input[type='range']::-webkit-slider-thumb {
+  background-color: var(--primary-color) !important;
+}
+input[type='range']::-moz-range-thumb {
+  background-color: var(--primary-color) !important;
+}
+input[type='range']::-ms-thumb {
+  background-color: var(--primary-color) !important;
+}
+
+input[type='range'] + .thumb {
+  background-color: var(--primary-color) !important;
+}
+input[type='range'] + .thumb.active .value {
+  color: var(--bg-color) !important;
+}
+
 .pagination li.active {
   background-color: var(--primary-color) !important;
 }
@@ -387,6 +421,10 @@ input:focus {
 
 .seat .active {
   color: var(--primary-color) !important;
+}
+
+.mb-0 {
+  margin-bottom: 0 !important;
 }
 
 .mb-1 {

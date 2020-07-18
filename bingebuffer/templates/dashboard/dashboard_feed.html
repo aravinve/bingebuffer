@@ -1,4 +1,55 @@
 {% extends 'dashboard/dashboard_home.html' %} {% block dashboardcontent %}
 <h3 class="text-secondary">Binge Feed</h3>
-
+<div class="fixed-action-btn">
+  <a class="btn-floating btn-large">
+    <i class="large material-icons bg-primary">dashboard</i>
+  </a>
+  <ul>
+    <li>
+      <a class="btn-floating bg-nav modal-trigger" href="#add-review"
+        ><i class="material-icons text-secondary">add</i></a
+      >
+    </li>
+  </ul>
+</div>
+<div id="add-review" class="modal">
+  <div class="modal-content bg-nav">
+    <h4>Binge Review</h4>
+    <p>Add your Review in the below form</p>
+    <div class="row mt-2 mb-0">
+      <form class="col s12">
+        <div class="row">
+          <div class="input-field col s6">
+            <input id="movie-name" type="text" required />
+            <label for="movie-name">Movie Name</label>
+          </div>
+          <div class="input-field col s6">
+            <p class="range-field">
+              <label
+                for="movie-rating"
+                style="margin-bottom: 0.6rem; display: block;"
+                >Movie Rating</label
+              >
+              <input type="range" id="movie-rating" min="0" max="10" required />
+            </p>
+          </div>
+        </div>
+        <div class="row mb-0">
+          <div class="input-field col s12">
+            <textarea
+              id="textarea1"
+              class="materialize-textarea"
+              placeholder="Write your review here ..."
+            ></textarea>
+            <label for="textarea1">Review</label>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="modal-footer bg-nav">
+    <button class="modal-close bg-secondary btn-flat">Close</button>
+    <a href="#!" class="bg-primary btn">Save</a>
+  </div>
+</div>
 {% endblock %}
