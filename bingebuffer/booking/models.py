@@ -27,4 +27,4 @@ class Booking(models.Model):
     booking_meta = models.ForeignKey(Bookingmeta, on_delete=models.CASCADE, default=None)
     
     def __str__(self):
-        return str(self.id);
+        return str(self.id)

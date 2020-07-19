@@ -1,5 +1,41 @@
 {% extends 'dashboard/dashboard_home.html' %} {% block dashboardcontent %}
-<h3 class="text-secondary">Binge Feed</h3>
+<div class="row">
+  {% if reviews|length > 0 %}
+  <h4 class="text-secondary">
+    Binge Feed
+  </h4>
+  {% else %}
+  <h4 class="text-secondary">
+    Feed Not Available
+  </h4>
+  {% endif %}
+</div>
+<div class="col s10">
+  <div class="row">
+    {% for review in reviews %}
+    <div class="card-panel text-secondary bg-nav">
+      <div class="row">
+        <h5 class="col s10 text-secondary">
+          {{review.review_title}}
+        </h5>
+        <h6 class="col s2">
+          <span class="badger bg-primary">
+            {{review.movie_rating}} / 10
+          </span>
+        </h6>
+      </div>
+      <div class="row mb-0">
+        <div class="col s6 text-secondary">
+          Review By: {{review.user}}
+        </div>
+        <div class="col s6 text-secondary">
+          {{review.review_hash}}
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
 <div class="fixed-action-btn">
   <a class="btn-floating btn-large">
     <i class="large material-icons bg-primary">dashboard</i>
@@ -14,14 +50,40 @@
 </div>
 <div id="add-review" class="modal">
   <div class="modal-content bg-nav">
-    <h4>Binge Review</h4>
-    <p>Add your Review in the below form</p>
-    <div class="row mt-2 mb-0">
-      <form class="col s12">
-        <div class="row">
+    <h5>Add your Binge Review</h5>
+    <div class="row mb-0">
+      <form
+        class="col s12"
+        action="{% url 'dashboard:postreview' %}"
+        method="POST"
+      >
+        {% csrf_token %}
+        <div class="row mb-0">
           <div class="input-field col s6">
-            <input id="movie-name" type="text" required />
-            <label for="movie-name">Movie Name</label>
+            <input id="review-title" type="text" name="reviewTitle" required />
+            <label for="review-title">Movie Review Title</label>
+          </div>
+          <div class="input-field col s6">
+            <input
+              id="review-slug"
+              type="text"
+              name="reviewSlug"
+              required
+              disabled
+            />
+            <span class="helper-text">Movie Review Slug</span>
+          </div>
+        </div>
+        <div class="row mb-0">
+          <div class="input-field col s6">
+            <input
+              id="auto-movie-name"
+              type="text"
+              class="autocomplete"
+              name="movieName"
+              required
+            />
+            <label for="auto-movie-name">Movie Name</label>
           </div>
           <div class="input-field col s6">
             <p class="range-field">
@@ -30,26 +92,59 @@
                 style="margin-bottom: 0.6rem; display: block;"
                 >Movie Rating</label
               >
-              <input type="range" id="movie-rating" min="0" max="10" required />
+              <input
+                type="range"
+                id="movie-rating"
+                min="0"
+                max="10"
+                name="movieRating"
+                required
+              />
             </p>
           </div>
         </div>
         <div class="row mb-0">
+          <input type="hidden" name="movieId" id="auto-movie-id" />
           <div class="input-field col s12">
             <textarea
               id="textarea1"
               class="materialize-textarea"
               placeholder="Write your review here ..."
+              maxlength="1000"
+              name="movieReview"
+              required
             ></textarea>
             <label for="textarea1">Review</label>
           </div>
         </div>
+        <div class="row mb-0">
+          <div class="input-field col s6">
+            <div class="input-field switch">
+              <label>
+                Draft
+                <input type="checkbox" id="review-status-switch" />
+                <span class="lever"></span>
+                Publish
+              </label>
+            </div>
+          </div>
+          <div class="col s6">
+            <div class="chips chips-placeholder" id="review-chips"></div>
+            <input type="hidden" name="reviewHashTags" id="review-hashtags" />
+            <input
+              type="hidden"
+              name="reviewPublicStatus"
+              id="review-public-status"
+              value="false"
+            />
+          </div>
+        </div>
+        <div class="modal-footer bg-nav">
+          <button class="modal-close bg-secondary btn-flat">Close</button>
+          <input type="submit" class="bg-primary btn" value="Save" />
+        </div>
       </form>
     </div>
-  </div>
-  <div class="modal-footer bg-nav">
-    <button class="modal-close bg-secondary btn-flat">Close</button>
-    <a href="#!" class="bg-primary btn">Save</a>
   </div>
 </div>
 {% endblock %}

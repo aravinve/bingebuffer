@@ -2,6 +2,7 @@ M.AutoInit();
 
 const toggleSwitch = document.querySelector('#theme-switch');
 const toggleSwitchMobile = document.querySelector('#theme-switch-mobile');
+const reviewStatusSwitch = document.querySelector('#review-status-switch');
 const bbLogo = document.querySelector('#bb-logo');
 const seats = document.querySelectorAll('.seat');
 const seatContent = document.querySelector('#seat-content');
@@ -23,6 +24,11 @@ const continueBookingBtnOne = document.querySelector(
 const continueBookingBtnTwo = document.querySelector(
   '#seat-continue-booking-btn'
 );
+const autoMovieName = document.querySelector('.autocomplete');
+const autoMovieId = document.querySelector('#auto-movie-id');
+const reviewChips = document.querySelector('#review-chips');
+const reviewHashTagsInput = document.querySelector('#review-hashtags');
+const reviewPublicStatusInput = document.querySelector('#review-public-status');
 
 document.onreadystatechange = () => {
   const theme = localStorage.getItem('data-theme');
@@ -41,7 +47,21 @@ document.onreadystatechange = () => {
   if (dateSelecter !== null) {
     setLimitToDateSelector();
   }
+  if (reviewChips !== null) {
+    M.Chips.init(reviewChips, {
+      placeholder: 'Enter a tag',
+      secondaryPlaceholder: '+Tag',
+      limit: 10,
+      onChipAdd: setDataInHiddenInput,
+      onChipDelete: setDataInHiddenInput,
+    });
+  }
 };
+
+function setDataInHiddenInput(e) {
+  const chipsData = e[0].M_Chips.chipsData;
+  reviewHashTagsInput.value = JSON.stringify(chipsData);
+}
 
 function switchTheme(e) {
   if (e.target.checked) {
@@ -237,6 +257,35 @@ function validateSeatSelection(e) {
   }
 }
 
+function autocompleteSearch(e) {
+  fetch(
+    `https://api.themoviedb.org/3/search/movie?api_key=27a15e97323cf3d6f95c3e08935d876d&language=en-US&query=${e.target.value}&page=1&include_adult=false`
+  )
+    .then((res) => {
+      return res.json();
+    })
+    .then((body) => {
+      let apiData = {};
+      body.results.forEach((result) => {
+        const { title, poster_path } = result;
+        apiData[title] =
+          poster_path !== null
+            ? `https://image.tmdb.org/t/p/w185_and_h278_bestv2/${poster_path}`
+            : `https://placehold.it/250x250`;
+      });
+      var instances = M.Autocomplete.init(autoMovieName, {
+        data: apiData,
+        limit: 10,
+      });
+      instances.open();
+      autoMovieId.value = JSON.stringify(body.results);
+    });
+}
+
+function updateReviewStatus(e) {
+  reviewPublicStatusInput.value = e.target.checked;
+}
+
 toggleSwitch.addEventListener('change', switchTheme, false);
 toggleSwitchMobile.addEventListener('change', switchTheme, false);
 seats.forEach((seat) => {
@@ -255,4 +304,12 @@ if (continueBookingBtnOne !== null) {
 }
 if (continueBookingBtnTwo !== null) {
   continueBookingBtnTwo.addEventListener('click', validateSeatSelection, false);
+}
+
+if (autoMovieName !== null) {
+  autoMovieName.addEventListener('input', autocompleteSearch, false);
+}
+
+if (reviewStatusSwitch !== null) {
+  reviewStatusSwitch.addEventListener('change', updateReviewStatus, false);
 }

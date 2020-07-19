@@ -4,6 +4,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from booking.models import Booking, Bookingmeta
 import uuid
 import io
+import json
 from django.http import FileResponse
 from reportlab.platypus import SimpleDocTemplate
 from reportlab.platypus.tables import Table
@@ -11,7 +12,7 @@ from . import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserChangeForm, PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
-from .models import Userprofile
+from .models import Userprofile, MovieReview
 
 # Create your views here.
 @login_required(login_url="/accounts/login")
@@ -21,7 +22,8 @@ def dashboard_home(request):
 
 @login_required(login_url="/accounts/login")
 def dashboard_feed(request):
-    return render(request, 'dashboard/dashboard_feed.html')
+    reviews = MovieReview.objects.filter(review_public_status=True)
+    return render(request, 'dashboard/dashboard_feed.html' , {'reviews': reviews})
 
 
 @login_required(login_url="/accounts/login")
@@ -108,3 +110,35 @@ def dashboard_password(request):
     else:
         form = PasswordChangeForm(user=request.user)
         return render(request, 'dashboard/dashboard_passwordchange.html', {'form': form})
+
+@login_required(login_url="/accounts/login")
+def dashboard_postreview(request): 
+    if request.method == 'POST':
+        print(request.POST)
+        movie_name = request.POST['movieName']
+        movie_rating = request.POST['movieRating']
+        movie_review = request.POST['movieReview']
+        review_title = request.POST['reviewTitle']
+        if request.POST['reviewPublicStatus'] == 'true':
+            review_public_status = True
+        else:
+            review_public_status = False
+        review_hastags = request.POST['reviewHashTags']
+        movie_id = request.POST['movieId']
+        movie_list = json.loads(movie_id)
+        review_slug = str(review_title).lower().strip().replace(r'/&/g', '-and-').replace(r'/[\s\W-]+/g', '-')
+        movie_data_id = None
+        movie_data_posterpath = None
+        movie_data_backdroppath = None
+        for movie in movie_list:
+            if movie['title'] == movie_name:
+                movie_data_id = json.dumps(movie['id'])
+                movie_data_posterpath = json.dumps(movie['poster_path'])
+                movie_data_backdroppath = json.dumps(movie['backdrop_path'])
+        movie_review_id = uuid.uuid4()
+        review = MovieReview(
+            id=movie_review_id, user=request.user, movie_id=movie_data_id, movie_name=movie_name, 
+            movie_posterpath=movie_data_posterpath, movie_backdroppath=movie_data_backdroppath, review_hash=review_hastags, review_public_status=review_public_status, review_title=review_title, review_slug=review_slug,
+            movie_rating=movie_rating, movie_review=movie_review)
+        review.save()
+        return redirect('dashboard:feed')
