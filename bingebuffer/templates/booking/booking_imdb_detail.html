@@ -21,6 +21,11 @@
         <img src="{{movie.Poster}}" class="poster-img" alt="Movie Logo" />
         {% endif %}
       </div>
+      <div class="card-content mt-1">
+        <a href="{% url 'booking:shows' movieId %}" class="btn bg-primary"
+          >Book Tickets</a
+        >
+      </div>
     </div>
     <div class="col l6 m6 s12">
       <h4 class="text-secondary mb-2">

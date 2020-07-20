@@ -46,7 +46,7 @@ def booking_imdb_detail(request, id):
     data = response.json()
     page =  request.session.get('page')
     dataType = request.session.get('dataType')
-    return render(request, 'booking/booking_imdb_detail.html', {'movie': data,'page': page, 'dataType': dataType})
+    return render(request, 'booking/booking_imdb_detail.html', {'movieId':id, 'movie': data,'page': page, 'dataType': dataType})
 
 
 @login_required(login_url="/accounts/login")
