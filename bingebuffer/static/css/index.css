@@ -448,6 +448,7 @@ input[type='range'] + .thumb.active .value {
 .chip {
   color: var(--link-text-color) !important;
   background-color: var(--primary-color) !important;
+  border-radius: 4px !important;
 }
 
 .pagination li.active {
@@ -523,4 +524,8 @@ input[type='range'] + .thumb.active .value {
 
 .dashside {
   border-bottom: none !important;
+}
+
+.review-title:hover {
+  text-decoration: underline !important;
 }

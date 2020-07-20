@@ -13,4 +13,5 @@ urlpatterns = [
     path('settings/', views.dashboard_settings, name='settings'),
     path('bookings/pdf/<str:id>', views.dashboard_ticket_pdf, name='pdf'),
     path('postreview/', views.dashboard_postreview, name='postreview'),
+    path('feed/reviewdetail/<str:reviewId>/<str:reviewTitle>', views.dashboard_reviewdetail, name='reviewdetail'),
 ]

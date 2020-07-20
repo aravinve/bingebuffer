@@ -114,7 +114,6 @@ def dashboard_password(request):
 @login_required(login_url="/accounts/login")
 def dashboard_postreview(request): 
     if request.method == 'POST':
-        print(request.POST)
         movie_name = request.POST['movieName']
         movie_rating = request.POST['movieRating']
         movie_review = request.POST['movieReview']
@@ -142,3 +141,13 @@ def dashboard_postreview(request):
             movie_rating=movie_rating, movie_review=movie_review)
         review.save()
         return redirect('dashboard:feed')
+
+@login_required(login_url="/accounts/login")
+def dashboard_reviewdetail(request, reviewId, reviewTitle):
+    review = MovieReview.objects.get(id=reviewId)
+    review_hashtags = json.loads(review.review_hash)
+    poster_path = review.movie_posterpath.strip('\"')
+    backdrop_path = review.movie_backdroppath.strip('\"')
+    request.session['page'] = 1;
+    request.session['dataType'] = "now_playing";
+    return render(request, 'dashboard/dashboard_reviewdetail.html', {'reviewId': reviewId, 'reviewTitle': reviewTitle, 'review': review, 'review_hashtags': review_hashtags, 'poster_path': poster_path,'backdrop_path': 'https://image.tmdb.org/t/p/original/{}'.format(backdrop_path)})

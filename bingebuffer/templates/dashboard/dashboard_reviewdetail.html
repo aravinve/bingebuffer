@@ -1,0 +1,61 @@
+{% extends 'base_layout.html' %} {% block content %} {% load static %}
+<div
+  class="poster-backdrop"
+  style="background-image: url({{backdrop_path}});"
+></div>
+<div class="container">
+  <div class="row mt-2">
+    <a href="{% url 'dashboard:feed' %}" class="btn bg-primary left">Back</a>
+  </div>
+  <div class="row mt-2">
+    <div class="col l6 m6 s12 center">
+      <div class="card-image">
+        {% if poster_path is None %}
+        <img
+          src="{% static 'img/film-placeholder.png'%}"
+          class="poster-img"
+          alt="Movie Logo"
+        />
+        {% else %}
+        <img
+          src="https://image.tmdb.org/t/p/w185_and_h278_bestv2/{{poster_path}}"
+          class="poster-img"
+          alt="Movie Logo"
+        />
+        {% endif %}
+      </div>
+      <div class="card-content mt-1">
+        <a
+          href="{% url 'booking:detail' review.movie_id %}"
+          class="btn bg-primary"
+          >Read More</a
+        >
+      </div>
+    </div>
+    <div class="col l6 m6 s12">
+      <h4 class="text-secondary mb-1">
+        {{review.review_title}}
+      </h4>
+      <h6 class="text-secondary mb-2">
+        Review By: {{review.user | title}}
+      </h6>
+      <div class="card-content mt-2 mb-1">
+        {% for hashtags in review_hashtags %}
+        <span class="chip">
+          {{hashtags.tag}}
+        </span>
+        {% endfor %}
+      </div>
+      <div class="card-panel bg-nav text-secondary mb-1 mt-2">
+        {{review.movie_review}}
+      </div>
+      <div class="card-content mt-2 mb-1">
+        <span class="badger bg-primary">
+          Binge Rating: {{review.movie_rating}}
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

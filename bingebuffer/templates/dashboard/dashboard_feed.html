@@ -15,21 +15,29 @@
     {% for review in reviews %}
     <div class="card-panel text-secondary bg-nav">
       <div class="row">
-        <h5 class="col s10 text-secondary">
-          {{review.review_title}}
+        <h5 class="col s12 text-secondary mb-2 review-title">
+          <a
+            href="{% url 'dashboard:reviewdetail' reviewId=review.id reviewTitle=review.review_title %}"
+            class="bg-nav text-secondary"
+            >{{review.review_title}}</a
+          >
         </h5>
-        <h6 class="col s2">
-          <span class="badger bg-primary">
+        <div class="col s12">
+          Movie Name:
+          <span class="chip">
+            {{review.movie_name}}
+          </span>
+        </div>
+        <div class="col s12">
+          Binge Rating:
+          <span class="chip">
             {{review.movie_rating}} / 10
           </span>
-        </h6>
+        </div>
       </div>
       <div class="row mb-0">
         <div class="col s6 text-secondary">
-          Review By: {{review.user}}
-        </div>
-        <div class="col s6 text-secondary">
-          {{review.review_hash}}
+          Review By: {{review.user | title}}
         </div>
       </div>
     </div>
