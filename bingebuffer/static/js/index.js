@@ -3,6 +3,9 @@ M.AutoInit();
 const toggleSwitch = document.querySelector('#theme-switch');
 const toggleSwitchMobile = document.querySelector('#theme-switch-mobile');
 const reviewStatusSwitch = document.querySelector('#review-status-switch');
+const editReviewStatusSwitch = document.querySelector(
+  '#edit-review-status-switch'
+);
 const bbLogo = document.querySelector('#bb-logo');
 const seats = document.querySelectorAll('.seat');
 const seatContent = document.querySelector('#seat-content');
@@ -27,8 +30,13 @@ const continueBookingBtnTwo = document.querySelector(
 const autoMovieName = document.querySelector('.autocomplete');
 const autoMovieId = document.querySelector('#auto-movie-id');
 const reviewChips = document.querySelector('#review-chips');
+const editReviewChips = document.querySelector('#edit-review-chips');
 const reviewHashTagsInput = document.querySelector('#review-hashtags');
+const editReviewHashTagsInput = document.querySelector('#edit-review-hashtags');
 const reviewPublicStatusInput = document.querySelector('#review-public-status');
+const editReviewPublicStatusInput = document.querySelector(
+  '#edit-review-public-status'
+);
 
 document.onreadystatechange = () => {
   const theme = localStorage.getItem('data-theme');
@@ -56,11 +64,39 @@ document.onreadystatechange = () => {
       onChipDelete: setDataInHiddenInput,
     });
   }
+  if (editReviewChips !== null) {
+    M.Chips.init(editReviewChips, {
+      placeholder: 'Enter a tag',
+      secondaryPlaceholder: '+Tag',
+      limit: 10,
+      onChipAdd: setEditDataInHiddenInput,
+      onChipDelete: setEditDataInHiddenInput,
+    });
+  }
+  if (editReviewPublicStatusInput !== null) {
+    editReviewStatusSwitch.checked =
+      editReviewPublicStatusInput.value === 'True' ? true : false;
+  }
+  if (editReviewHashTagsInput !== null) {
+    M.Chips.init(editReviewChips, {
+      data: JSON.parse(editReviewHashTagsInput.value),
+      placeholder: 'Enter a tag',
+      secondaryPlaceholder: '+Tag',
+      limit: 10,
+      onChipAdd: setEditDataInHiddenInput,
+      onChipDelete: setEditDataInHiddenInput,
+    });
+  }
 };
 
 function setDataInHiddenInput(e) {
   const chipsData = e[0].M_Chips.chipsData;
   reviewHashTagsInput.value = JSON.stringify(chipsData);
+}
+
+function setEditDataInHiddenInput(e) {
+  const chipsData = e[0].M_Chips.chipsData;
+  editReviewHashTagsInput.value = JSON.stringify(chipsData);
 }
 
 function switchTheme(e) {
@@ -286,6 +322,10 @@ function updateReviewStatus(e) {
   reviewPublicStatusInput.value = e.target.checked;
 }
 
+function updateEditReviewStatus(e) {
+  editReviewPublicStatusInput.value = e.target.checked;
+}
+
 toggleSwitch.addEventListener('change', switchTheme, false);
 toggleSwitchMobile.addEventListener('change', switchTheme, false);
 seats.forEach((seat) => {
@@ -312,4 +352,12 @@ if (autoMovieName !== null) {
 
 if (reviewStatusSwitch !== null) {
   reviewStatusSwitch.addEventListener('change', updateReviewStatus, false);
+}
+
+if (editReviewStatusSwitch !== null) {
+  editReviewStatusSwitch.addEventListener(
+    'change',
+    updateEditReviewStatus,
+    false
+  );
 }

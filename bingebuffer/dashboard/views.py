@@ -145,9 +145,52 @@ def dashboard_postreview(request):
 @login_required(login_url="/accounts/login")
 def dashboard_reviewdetail(request, reviewId, reviewTitle):
     review = MovieReview.objects.get(id=reviewId)
-    review_hashtags = json.loads(review.review_hash)
+    if review.review_hash == "":
+        review_hashtags = []
+    else:
+        review_hashtags = json.loads(review.review_hash)
     poster_path = review.movie_posterpath.strip('\"')
     backdrop_path = review.movie_backdroppath.strip('\"')
     request.session['page'] = 1;
     request.session['dataType'] = "now_playing";
     return render(request, 'dashboard/dashboard_reviewdetail.html', {'reviewId': reviewId, 'reviewTitle': reviewTitle, 'review': review, 'review_hashtags': review_hashtags, 'poster_path': poster_path,'backdrop_path': 'https://image.tmdb.org/t/p/original/{}'.format(backdrop_path)})
+
+@login_required(login_url="/accounts/login")
+def dashboard_managereview(request):
+    reviews = MovieReview.objects.filter(user=request.user)
+    return render(request, 'dashboard/dashboard_managereview.html' , {'reviews': reviews, 'editMode': False})
+
+
+@login_required(login_url="/accounts/login")
+def dashboard_editreview(request, reviewId):
+    review = MovieReview.objects.get(id=reviewId)
+    return render(request, 'dashboard/dashboard_managereview.html' , {'review': review, 'editMode': True})
+
+def dashboard_updatereview(request, reviewId):
+    if request.method == 'POST':
+        review = MovieReview.objects.get(id=reviewId)
+        movie_rating = request.POST['movieRating']
+        movie_review = request.POST['movieReview']
+        review_title = request.POST['reviewTitle']
+        if request.POST['reviewPublicStatus'] == 'true':
+            review_public_status = True
+        else:
+            review_public_status = False
+        review_hastags = request.POST['reviewHashTags']
+        review_slug = str(review_title).lower().strip().replace(r'/&/g', '-and-').replace(r'/[\s\W-]+/g', '-')
+        review.movie_rating = movie_rating
+        review.movie_review = movie_review
+        review.review_title = review_title
+        review.review_slug = review_slug
+        review.review_public_status = review_public_status
+        review.review_hash = review_hastags
+        review.save()
+        return redirect('dashboard:managereview')
+    else:
+        return redirect('dashboard:managereview')
+
+@login_required(login_url="/accounts/login")
+def dashboard_deletereview(request, reviewId):
+    review = MovieReview.objects.get(id=reviewId)
+    review.delete()
+    return redirect('dashboard:managereview')
