@@ -40,15 +40,24 @@ def dashboard_profile(request):
             editProfileForm.save()
             return render(request, 'dashboard/dashboard_profile.html', {'editProfileForm': editProfileForm, 'userProfileForm': userProfileForm})
         else:
-            return render(request, 'dashboard/dashboard_profile.html', {'editProfileForm': editProfileForm, 'userProfileForm': userProfileForm})
-           
+            return render(request, 'dashboard/dashboard_profile.html', {'editProfileForm': editProfileForm, 'userProfileForm': userProfileForm})          
     else:
         editProfileForm = forms.EditProfileForm(instance=request.user)
-        userprofile = Userprofile.objects.get(user=request.user)
+        userprofile = Userprofile.objects.get_or_create(user=request.user)
+        print(userprofile)
         if userprofile is None:
             userProfileForm = forms.UserProfileForm()
         else:
-            initialData = {'nickname': userprofile.nickname, 'date_of_birth': userprofile.date_of_birth, 'badge': userprofile.badge}
+            nickname = ""
+            date_of_birth = ""
+            badge = ""
+            if nickname in userprofile:
+                nickname = userprofile.nickname
+            if date_of_birth in userprofile:
+                date_of_birth = userprofile.date_of_birth
+            if badge in userprofile:
+                badge = userprofile.badge
+            initialData = {'nickname': nickname, 'date_of_birth': date_of_birth, 'badge': badge}
             userProfileForm = forms.UserProfileForm(initial=initialData)
         return render(request, 'dashboard/dashboard_profile.html', {'editProfileForm': editProfileForm, 'userProfileForm': userProfileForm})
 
