@@ -526,6 +526,12 @@ input[type='range'] + .thumb.active .value {
   border-bottom: none !important;
 }
 
-.review-title:hover {
+.hover-title:hover {
   text-decoration: underline !important;
+}
+
+@media screen and (max-width: 600px) {
+  .poster-content {
+    display: inline;
+  }
 }

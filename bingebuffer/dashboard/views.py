@@ -44,7 +44,6 @@ def dashboard_profile(request):
     else:
         editProfileForm = forms.EditProfileForm(instance=request.user)
         userprofile = Userprofile.objects.get_or_create(user=request.user)
-        print(userprofile)
         if userprofile is None:
             userProfileForm = forms.UserProfileForm()
         else:

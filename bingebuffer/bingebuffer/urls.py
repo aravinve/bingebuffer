@@ -18,14 +18,17 @@ from django.urls import path, include
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.conf.urls.static import static
 from django.conf import settings
+from accounts import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('accounts.urls')),
+    path('', views.home_view, name='home'),
     path('dashboard/', include('dashboard.urls')),
     path('booking/', include('booking.urls')),
     path('accounts/', include('accounts.urls')),
 ]
+
+handler404 = 'booking.views.page_not_found'
 
 urlpatterns += staticfiles_urlpatterns()
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

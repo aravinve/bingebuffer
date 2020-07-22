@@ -1,22 +1,28 @@
 {% extends 'base_layout.html' %} {% block content %} {% load static %}
-<div class="container center">
-  <div class="row mt-2">
-    {%include "./booking_controls.html" %}
+<div>
+  {% if searchModule %}
+  <div class="container">
+    {%include "./booking_search_box.html" %}
   </div>
-</div>
-{% if searchBox %}
-<div class="container center">
-  <div class="row mt-2 mb-2">
-    {%include "../components/pagination.html" %}
+  {% else %}
+  <div class="container center">
+    <div class="row mt-2">
+      {%include "./booking_controls.html" %}
+    </div>
   </div>
+  <div class="container center">
+    <div class="row mt-2 mb-2">
+      {%include "../components/pagination.html" %}
+    </div>
+  </div>
+  {% endif %}
 </div>
-{% endif %}
 <div class="container">
-  <div class="row mt-2">
+  <div class="row mt-2 center">
     {% for movie in movieList %}
     <div class="col l6 s12">
       <div class="row" id="{{movie.id}}">
-        <div class="col l6 m6 s7">
+        <div class="col l6 m6 s12">
           <div class="card-image">
             <a href="{% url 'booking:detail' id=movie.id %}">
               {% if movie.poster_path is None %}
@@ -35,14 +41,20 @@
             </a>
           </div>
         </div>
-        <div class="col l6 m6 s5 bg-nav">
+        <div class="col l6 m6 s12 bg-nav">
           <div class="poster-content">
-            <h5 class="card-title text-secondary">{{movie.title}}</h5>
+            <h5 class="card-title text-secondary hover-title">
+              <a
+                href="{% url 'booking:detail' id=movie.id %}"
+                class="text-secondary"
+                >{{movie.title}}</a
+              >
+            </h5>
             <p class="card-content">
-              <span class="badger bg-primary">
+              <span class="chip">
                 {{movie.release_date}}
               </span>
-              <span class="badger bg-primary">
+              <span class="chip">
                 {{movie.vote_average}}
               </span>
             </p>
@@ -53,5 +65,4 @@
     {% endfor %}
   </div>
 </div>
-
-{% endblock %}
+{%include "./booking_floater.html" %} {% endblock %}

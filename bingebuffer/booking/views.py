@@ -25,7 +25,7 @@ def booking_page(request, page=1, dataType='now_playing'):
     data = response.json()
     request.session['page'] = page;
     request.session['dataType'] = dataType;
-    return render(request, 'booking/booking_page.html', {'movieList': data.get('results'), 'dataType': dataType, 'searchBox': True})
+    return render(request, 'booking/booking_page.html', {'movieList': data.get('results'), 'dataType': dataType, 'searchModule': False})
 
 
 @login_required(login_url="/accounts/login")
@@ -48,16 +48,22 @@ def booking_imdb_detail(request, id):
     dataType = request.session.get('dataType')
     return render(request, 'booking/booking_imdb_detail.html', {'movieId':id, 'movie': data,'page': page, 'dataType': dataType})
 
+@login_required(login_url="/accounts/login")
+def booking_searchview(request):
+    return render(request, 'booking/booking_search_view.html')
 
 @login_required(login_url="/accounts/login")
 def booking_search(request):
-    searchQuery = request.POST['searchQuery']
-    requestUrl = "https://api.themoviedb.org/3/search/movie?api_key=27a15e97323cf3d6f95c3e08935d876d&language=en-US&query={}&page=1&include_adult=false".format(searchQuery)
-    response = requests.get(requestUrl)
-    data = response.json()
-    request.session['page'] = 1;
-    request.session['dataType'] = "now_playing";
-    return render(request, 'booking/booking_page.html', {'movieList': data.get('results'), 'dataType': "now_playing", 'searchBox': False})
+    if request.method == 'POST':
+        searchQuery = request.POST['searchQuery']
+        requestUrl = "https://api.themoviedb.org/3/search/movie?api_key=27a15e97323cf3d6f95c3e08935d876d&language=en-US&query={}&page=1&include_adult=false".format(searchQuery)
+        response = requests.get(requestUrl)
+        data = response.json()
+        request.session['page'] = 1;
+        request.session['dataType'] = "now_playing";
+        return render(request, 'booking/booking_page.html', {'movieList': data.get('results'), 'dataType': "now_playing", 'searchModule': True})
+    else:
+        return redirect('booking:search_view')
 
 @login_required(login_url="/accounts/login")
 def booking_shows(request, movieId):
@@ -162,3 +168,6 @@ def send_ticket_mail(username, secret_key, booking_meta):
         msg.attach_alternative(message, "text/html")
         msg.content_subtype = "html"
         msg.send()
+
+def page_not_found(request, exception):
+    return render(request, 'booking/404.html')

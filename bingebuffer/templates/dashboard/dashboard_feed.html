@@ -15,7 +15,7 @@
     {% for review in reviews %}
     <div class="card-panel text-secondary bg-nav">
       <div class="row">
-        <h5 class="col s12 text-secondary mb-2 review-title">
+        <h5 class="col s12 text-secondary mb-2 hover-title">
           <a
             href="{% url 'dashboard:reviewdetail' reviewId=review.id reviewTitle=review.review_title %}"
             class="bg-nav text-secondary"
