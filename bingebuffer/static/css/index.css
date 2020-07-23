@@ -530,8 +530,24 @@ input[type='range'] + .thumb.active .value {
   text-decoration: underline !important;
 }
 
+.confirmation-btns > .btn-flat {
+  color: var(--secondary-color) !important;
+}
+
+.fluid-container {
+  width: 90%;
+  margin: 0 auto;
+}
+
 @media screen and (max-width: 600px) {
   .poster-content {
     display: inline;
+  }
+  .poster-backdrop {
+    height: 32vh;
+    background-size: cover;
+  }
+  #toast-container {
+    left: 0%;
   }
 }

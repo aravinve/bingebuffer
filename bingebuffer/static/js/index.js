@@ -176,7 +176,7 @@ function selectSeat(e) {
       if (textContent !== '') {
         const textElement = document.createTextNode(textContent);
         span.appendChild(textElement);
-        const classes = ['badger', 'bg-primary', 'col', 's3'];
+        const classes = ['chip', 'col', 's3'];
         span.classList.add(...classes);
         seatContent.appendChild(span);
         confirmSeatNumbersInput.value =

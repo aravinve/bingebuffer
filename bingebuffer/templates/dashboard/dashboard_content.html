@@ -13,7 +13,7 @@
     {% for result in results %}
     <li class="collection-item bg-nav">
       <div class="row mt-1 mb-1">
-        <div class="col l4 m4 s12">
+        <div class="col l4 m4 s12 center">
           <div class="card-image">
             {% if result.movie_poster is None %}
             <img
@@ -50,10 +50,10 @@
           <div class="row mt-2">
             <a
               href="{% url 'dashboard:pdf' id=result.transaction_id %}"
-              class="btn bg-primary left"
+              class="btn bg-primary col s12 mb-1"
               >Print Ticket</a
             >
-            <a href="{% url 'booking:home' %}" class="btn bg-primary right"
+            <a href="{% url 'booking:home' %}" class="btn bg-primary col s12"
               >Send Confirmation</a
             >
           </div>

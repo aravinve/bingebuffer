@@ -1,31 +1,33 @@
 {% extends 'dashboard/dashboard_home.html' %} {% block dashboardcontent %}
-<h3 class="text-secondary">My Profile</h3>
-<form action="{% url 'dashboard:profile' %} " method="POST">
-  <div class="row">
-    <h5 class="col l9 m9 s12">
-      Primary Profile Details
-    </h5>
-    <input
-      type="submit"
-      value="Save"
-      style="margin-top: 0.8rem; margin-right: 1rem;"
-      class="btn bg-primary col l2 m2 s12"
-    />
-  </div>
-  {% csrf_token %} {{editProfileForm}}
-</form>
-<form action="{% url 'dashboard:userprofile' %} " method="POST">
-  <div class="row">
-    <h5 class="col l9 m9 s12">
-      User Profile Details
-    </h5>
-    <input
-      type="submit"
-      value="Save"
-      style="margin-top: 0.8rem; margin-right: 1rem;"
-      class="btn bg-primary col l2 m2 s12"
-    />
-  </div>
-  {% csrf_token %} {{userProfileForm}}
-</form>
+<div class="fluid-container">
+  <h3 class="text-secondary">My Profile</h3>
+  <form action="{% url 'dashboard:profile' %} " method="POST">
+    <div class="row">
+      <h5 class="col l9 m9 s12">
+        Primary Profile Details
+      </h5>
+      <input
+        type="submit"
+        value="Save"
+        style="margin-top: 0.8rem; margin-right: 1rem;"
+        class="btn bg-primary col l2 m2 s12"
+      />
+    </div>
+    {% csrf_token %} {{editProfileForm}}
+  </form>
+  <form action="{% url 'dashboard:userprofile' %} " method="POST">
+    <div class="row">
+      <h5 class="col l9 m9 s12">
+        User Profile Details
+      </h5>
+      <input
+        type="submit"
+        value="Save"
+        style="margin-top: 0.8rem; margin-right: 1rem;"
+        class="btn bg-primary col l2 m2 s12"
+      />
+    </div>
+    {% csrf_token %} {{userProfileForm}}
+  </form>
+</div>
 {% endblock %}

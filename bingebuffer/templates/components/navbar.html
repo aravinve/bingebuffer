@@ -78,13 +78,13 @@
         >
       </li>
       <li>
-        <a class="text-secondary" href="#!">
+        <a class="text-secondary" href="{% url 'dashboard:profile' %}">
           <i class="material-icons left text-secondary">account_box</i>
           Profile</a
         >
       </li>
       <li>
-        <a class="text-secondary" href="#!">
+        <a class="text-secondary" href="{% url 'dashboard:settings' %}">
           <i class="material-icons left text-secondary">settings</i>Settings</a
         >
       </li>
@@ -109,10 +109,10 @@
 
 <ul id="accountsDropdown" class="dropdown-content bg-nav">
   <li>
-    <a href="#!">Profile</a>
+    <a href="{% url 'dashboard:profile' %}">Profile</a>
   </li>
   <li>
-    <a href="#!"> Settings</a>
+    <a href="{% url 'dashboard:settings' %}"> Settings</a>
   </li>
   <li class="divider"></li>
   <li>

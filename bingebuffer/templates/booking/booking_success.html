@@ -10,12 +10,12 @@
           Secret Key: {{secret_key}}
         </h4>
       </div>
-      <h6 class="text-secondary">
+      <h6 class="text-secondary mb-1">
         Show Secret Key at the Screen entrance and View Booking Details Below
       </h6>
       <div class="card-panel bg-nav">
         <div class="row mt-1 mb-1">
-          <div class="col l3 m3 s12">
+          <div class="col s12">
             <div class="card-image">
               {% if booking_meta.movie_poster is None %}
               <img
@@ -32,8 +32,8 @@
               {% endif %}
             </div>
           </div>
-          <div class="col l9 m9 s12">
-            <table class="table-responsive centered">
+          <div class="col s12 mt-1">
+            <table class="responsive-table centered">
               <thead>
                 <tr>
                   <th>Movie Name</th>

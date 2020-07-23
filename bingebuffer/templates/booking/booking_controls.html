@@ -1,43 +1,30 @@
 <div class="container">
   <div class="row">
-    <div class="col l6 m6 s12">
-      <div
-        class="col s6 mb-1"
-        style="white-space: nowrap; text-overflow: ellipsis;"
+    <div class="col s12">
+      <a
+        style="font-size: 0.8rem;"
+        class="btn bg-nav text-secondary col s5 mb-1"
+        href="{% url 'booking:page'  dataType='now_playing' page=1 %}"
+        >Now Playing</a
       >
-        <a
-          style="font-size: 0.8rem;"
-          class="btn bg-nav text-secondary"
-          href="{% url 'booking:page'  dataType='now_playing' page=1 %}"
-          >Now Playing</a
-        >
-      </div>
-      <div class="col s6">
-        <a
-          style="font-size: 0.8rem;"
-          class="btn bg-nav text-secondary"
-          href="{% url 'booking:page'  dataType='upcoming' page=1 %}"
-          >Upcoming</a
-        >
-      </div>
-    </div>
-    <div class="col l6 m6 s12">
-      <div class="col s6" style="white-space: nowrap; text-overflow: ellipsis;">
-        <a
-          style="font-size: 0.8rem;"
-          class="btn bg-nav text-secondary"
-          href="{% url 'booking:page'  dataType='popular' page=1 %}"
-          >Popular</a
-        >
-      </div>
-      <div class="col s6">
-        <a
-          style="font-size: 0.8rem;"
-          class="btn bg-nav text-secondary"
-          href="{% url 'booking:page'  dataType='top_rated' page=1 %}"
-          >Top Rated</a
-        >
-      </div>
+      <a
+        style="font-size: 0.8rem;"
+        class="btn bg-nav text-secondary col s5 offset-s1 mb-1"
+        href="{% url 'booking:page'  dataType='popular' page=1 %}"
+        >Popular</a
+      >
+      <a
+        style="font-size: 0.8rem;"
+        class="btn bg-nav text-secondary col s5"
+        href="{% url 'booking:page'  dataType='upcoming' page=1 %}"
+        >Upcoming</a
+      >
+      <a
+        style="font-size: 0.8rem;"
+        class="btn bg-nav text-secondary col s5 offset-s1"
+        href="{% url 'booking:page'  dataType='top_rated' page=1 %}"
+        >Top Rated</a
+      >
     </div>
   </div>
 </div>

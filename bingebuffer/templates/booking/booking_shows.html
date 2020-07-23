@@ -19,7 +19,7 @@
     </div>
   </div>
   <div class="row">
-    <div class="input-field col s2">
+    <div class="input-field col l2 m4 s6">
       <select name="seatSelect" id="seat-selecter" required>
         <option disabled selected value> Select Seat </option>
         {% for s in seatCount %}
@@ -28,7 +28,7 @@
       </select>
       <label>Seats Required</label>
     </div>
-    <div class="input-field col s2">
+    <div class="input-field col l2 m4 s6">
       <label>Date</label>
       <input
         type="text"
@@ -37,7 +37,7 @@
         class="datepicker"
       />
     </div>
-    <div class="col s6 right">
+    <div class="input-field col s6 right">
       <form action="{% url 'booking:seats' %}" method="POST">
         {% csrf_token %}
         <div style="display: none;">

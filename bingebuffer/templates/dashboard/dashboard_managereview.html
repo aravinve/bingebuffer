@@ -1,195 +1,196 @@
 {% extends 'dashboard/dashboard_home.html' %} {% block dashboardcontent %}
-<div class="row mt-2">
-  {% if editMode %}
-  <a href="{% url 'dashboard:managereview' %}" class="btn bg-primary left"
-    >Back</a
-  >
-  {% else %}
-  <a href="{% url 'dashboard:feed' %}" class="btn bg-primary left">Back</a>
+<div class="fluid-container">
+  <div class="row mt-2">
+    {% if editMode %}
+    <a href="{% url 'dashboard:managereview' %}" class="btn bg-primary left"
+      >Back</a
+    >
+    {% else %}
+    <a href="{% url 'dashboard:feed' %}" class="btn bg-primary left">Back</a>
+    {% endif %}
+  </div>
+  {% if editMode == False %}
+  <div class="row">
+    {% if reviews|length > 0 %}
+    <h4 class="text-secondary">
+      Manage Binge Feed
+    </h4>
+    {% else %}
+    <h4 class="text-secondary">
+      No Binge Reviews Available
+    </h4>
+    {% endif %}
+  </div>
   {% endif %}
-</div>
-{% if editMode == False %}
-<div class="row">
-  {% if reviews|length > 0 %}
-  <h4 class="text-secondary">
-    Manage Binge Feed
-  </h4>
-  {% else %}
-  <h4 class="text-secondary">
-    No Binge Reviews Available
-  </h4>
-  {% endif %}
-</div>
-{% endif %}
-<div class="row">
-  <div class="col s10">
-    <div class="row">
-      {% if editMode %}
-      <div class="card-panel text-secondary bg-nav">
-        <h5>Edit your Binge Review</h5>
-        <div class="row mb-0">
-          <form
-            class="col s12"
-            action="{% url 'dashboard:updatereview' reviewId=review.id %}"
-            method="POST"
-          >
-            {% csrf_token %}
-            <div class="row mb-0">
-              <div class="input-field col s6">
-                <input
-                  id="review-title"
-                  type="text"
-                  name="reviewTitle"
-                  required
-                  value="{{review.review_title }}"
-                />
-                <label for="review-title">Movie Review Title</label>
-              </div>
-              <div class="input-field col s6">
-                <input
-                  id="review-slug"
-                  type="text"
-                  name="reviewSlug"
-                  required
-                  disabled
-                  value="{{review.review_slug}}"
-                />
-                <span class="helper-text">Movie Review Slug</span>
-              </div>
-            </div>
-            <div class="row mb-0">
-              <div class="input-field col s6">
-                <p id="auto-movie-name">
-                  {{review.movie_name}}
-                </p>
-              </div>
-              <div class="input-field col s6">
-                <p class="range-field">
-                  <label
-                    for="movie-rating"
-                    style="margin-bottom: 0.6rem; display: block;"
-                    >Movie Rating</label
-                  >
+  <div class="row">
+    <div class="col s12">
+      <div class="row">
+        {% if editMode %}
+        <div class="card-panel text-secondary bg-nav">
+          <h5>Edit your Binge Review</h5>
+          <div class="row mb-0">
+            <form
+              class="col s12"
+              action="{% url 'dashboard:updatereview' reviewId=review.id %}"
+              method="POST"
+            >
+              {% csrf_token %}
+              <div class="row mb-0">
+                <div class="input-field col l6 m6 s12">
                   <input
-                    type="range"
-                    id="movie-rating"
-                    min="0"
-                    max="10"
-                    name="movieRating"
+                    id="review-title"
+                    type="text"
+                    name="reviewTitle"
                     required
-                    value="{{review.movie_rating}}"
+                    value="{{review.review_title }}"
                   />
-                </p>
-              </div>
-            </div>
-            <div class="row mb-0">
-              <div class="input-field col s12">
-                <textarea
-                  id="textarea1"
-                  class="materialize-textarea"
-                  placeholder="Write your review here ..."
-                  maxlength="1000"
-                  name="movieReview"
-                  required
-                >
-{{review.movie_review}}</textarea
-                >
-                <label for="textarea1">Review</label>
-              </div>
-            </div>
-            <div class="row mb-0">
-              <div class="input-field col s6">
-                <div class="input-field switch">
-                  <label>
-                    Draft
-                    <input type="checkbox" id="edit-review-status-switch" />
-                    <span class="lever"></span>
-                    Publish
-                  </label>
+                  <label for="review-title">Movie Review Title</label>
+                </div>
+                <div class="input-field col l6 m6 s12">
+                  <input
+                    id="review-slug"
+                    type="text"
+                    name="reviewSlug"
+                    required
+                    disabled
+                    value="{{review.review_slug}}"
+                  />
+                  <span class="helper-text">Movie Review Slug</span>
                 </div>
               </div>
-              <div class="col s6">
-                <div
-                  class="chips chips-placeholder"
-                  id="edit-review-chips"
-                ></div>
-                <input
-                  type="hidden"
-                  name="reviewHashTags"
-                  id="edit-review-hashtags"
-                  value="{{review.review_hash}}"
-                />
-                <input
-                  type="hidden"
-                  name="reviewPublicStatus"
-                  id="edit-review-public-status"
-                  value="{{review.review_public_status}}"
-                />
+              <div class="row mb-0">
+                <div class="input-field col l6 m6 s12">
+                  <p id="auto-movie-name">
+                    {{review.movie_name}}
+                  </p>
+                </div>
+                <div class="input-field col l6 m6 s12">
+                  <p class="range-field">
+                    <label
+                      for="movie-rating"
+                      style="margin-bottom: 0.6rem; display: block;"
+                      >Movie Rating</label
+                    >
+                    <input
+                      type="range"
+                      id="movie-rating"
+                      min="0"
+                      max="10"
+                      name="movieRating"
+                      required
+                      value="{{review.movie_rating}}"
+                    />
+                  </p>
+                </div>
+              </div>
+              <div class="row mb-0">
+                <div class="input-field col s12">
+                  <textarea
+                    id="textarea1"
+                    class="materialize-textarea"
+                    placeholder="Write your review here ..."
+                    maxlength="1000"
+                    name="movieReview"
+                    required
+                  >
+  {{review.movie_review}}</textarea
+                  >
+                  <label for="textarea1">Review</label>
+                </div>
+              </div>
+              <div class="row mb-0">
+                <div class="input-field col l6 m6 s12">
+                  <div class="switch">
+                    <label>
+                      Draft
+                      <input type="checkbox" id="edit-review-status-switch" />
+                      <span class="lever"></span>
+                      Publish
+                    </label>
+                  </div>
+                </div>
+                <div class="col l6 m6 s12">
+                  <div
+                    class="chips chips-placeholder"
+                    id="edit-review-chips"
+                  ></div>
+                  <input
+                    type="hidden"
+                    name="reviewHashTags"
+                    id="edit-review-hashtags"
+                    value="{{review.review_hash}}"
+                  />
+                  <input
+                    type="hidden"
+                    name="reviewPublicStatus"
+                    id="edit-review-public-status"
+                    value="{{review.review_public_status}}"
+                  />
+                </div>
+              </div>
+              <div class="mt-1 bg-nav right">
+                <a
+                  href="{% url 'dashboard:managereview' %}"
+                  class="bg-secondary btn-flat"
+                  >Cancel</a
+                >
+                <input type="submit" class="bg-primary btn" value="Save" />
+              </div>
+            </form>
+          </div>
+        </div>
+        {% else %} {% for review in reviews %}
+        <div class="card-panel text-secondary bg-nav">
+          <div class="row mb-0">
+            <div class="col s6">
+              {% if review.review_public_status %}
+              <h5 class="chip" style="margin: 0;">
+                Published
+              </h5>
+              {% else %}
+              <h5 class="chip" style="margin: 0;">
+                Draft
+              </h5>
+              {% endif %}
+            </div>
+            <div class="col s2 offset-s3 offset-l4 offset-m4">
+              <a
+                href="{% url 'dashboard:editreview' reviewId=review.id %}"
+                class="bg-nav btn text-secondary m-1"
+                ><i class="material-icons text-secondary">edit</i></a
+              >
+              <a
+                href="{% url 'dashboard:deletereview' reviewId=review.id %}"
+                class="bg-nav btn text-secondary m-1"
+              >
+                <i class="material-icons text-secondary">delete</i>
+              </a>
+            </div>
+          </div>
+          <div class="row">
+            <h5 class="col s12 text-secondary mb-2">
+              {{review.review_title}}
+            </h5>
+            <div class="fluid-container">
+              <div class="col s12">
+                {{review.movie_name}}
+              </div>
+              <div class="col s12">
+                Binge Rating:
+                <span class="chip">
+                  {{review.movie_rating}} / 10
+                </span>
               </div>
             </div>
-            <div class="mt-1 bg-nav right">
-              <a
-                href="{% url 'dashboard:managereview' %}"
-                class="btn bg-primary"
-                >Cancel</a
-              >
-              <input type="submit" class="bg-primary btn" value="Save" />
+          </div>
+          <div class="row mb-0">
+            <div class="col s6 text-secondary">
+              Review By: {{review.user | title}}
             </div>
-          </form>
+          </div>
         </div>
+        {% endfor %} {% endif %}
       </div>
-      {% else %} {% for review in reviews %}
-      <div class="card-panel text-secondary bg-nav">
-        <div class="row mb-0">
-          <div class="col s6">
-            {% if review.review_public_status %}
-            <h5 class="chip" style="margin: 0;">
-              Published
-            </h5>
-            {% else %}
-            <h5 class="chip" style="margin: 0;">
-              Draft
-            </h5>
-            {% endif %}
-          </div>
-          <div class="col s2 offset-s4">
-            <a
-              href="{% url 'dashboard:editreview' reviewId=review.id %}"
-              class="bg-nav btn text-secondary"
-              ><i class="material-icons text-secondary">edit</i></a
-            >
-            <a
-              href="{% url 'dashboard:deletereview' reviewId=review.id %}"
-              class="bg-nav btn text-secondary"
-            >
-              <i class="material-icons text-secondary">delete</i>
-            </a>
-          </div>
-        </div>
-        <div class="row">
-          <h5 class="col s12 text-secondary mb-2">
-            {{review.review_title}}
-          </h5>
-          <div class="col s12">
-            Movie Name:
-            <span class="chip">
-              {{review.movie_name}}
-            </span>
-          </div>
-          <div class="col s12">
-            Binge Rating:
-            <span class="chip">
-              {{review.movie_rating}} / 10
-            </span>
-          </div>
-        </div>
-        <div class="row mb-0">
-          <div class="col s6 text-secondary">
-            Review By: {{review.user | title}}
-          </div>
-        </div>
-      </div>
-      {% endfor %} {% endif %}
     </div>
   </div>
 </div>

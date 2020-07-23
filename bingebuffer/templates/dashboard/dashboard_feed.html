@@ -1,47 +1,46 @@
 {% extends 'dashboard/dashboard_home.html' %} {% block dashboardcontent %}
-<div class="row">
-  {% if reviews|length > 0 %}
-  <h4 class="text-secondary">
-    Binge Feed
-  </h4>
-  {% else %}
-  <h4 class="text-secondary">
-    Feed Not Available
-  </h4>
-  {% endif %}
-</div>
-<div class="col s10">
+<div class="fluid-container">
   <div class="row">
-    {% for review in reviews %}
-    <div class="card-panel text-secondary bg-nav">
-      <div class="row">
-        <h5 class="col s12 text-secondary mb-2 hover-title">
-          <a
-            href="{% url 'dashboard:reviewdetail' reviewId=review.id reviewTitle=review.review_title %}"
-            class="bg-nav text-secondary"
-            >{{review.review_title}}</a
-          >
-        </h5>
-        <div class="col s12">
-          Movie Name:
-          <span class="chip">
-            {{review.movie_name}}
-          </span>
+    {% if reviews|length > 0 %}
+    <h4 class="text-secondary">
+      Binge Feed
+    </h4>
+    {% else %}
+    <h4 class="text-secondary">
+      Feed Not Available
+    </h4>
+    {% endif %}
+  </div>
+  <div class="col s12">
+    <div class="row">
+      {% for review in reviews %}
+      <div class="card-panel text-secondary bg-nav">
+        <div class="row">
+          <h5 class="col s12 text-secondary mb-2 hover-title">
+            <a
+              href="{% url 'dashboard:reviewdetail' reviewId=review.id reviewTitle=review.review_title %}"
+              class="bg-nav text-secondary"
+              >{{review.review_title}}</a
+            >
+          </h5>
+          <div class="fluid-container">
+            <div class="col s12">
+              {{review.movie_name}}
+            </div>
+            <div class="col s12">
+              Binge Rating:
+              <span class="chip">{{review.movie_rating}} / 10</span>
+            </div>
+          </div>
         </div>
-        <div class="col s12">
-          Binge Rating:
-          <span class="chip">
-            {{review.movie_rating}} / 10
-          </span>
+        <div class="row mb-0">
+          <div class="col s6 text-secondary">
+            Review By: {{review.user | title}}
+          </div>
         </div>
       </div>
-      <div class="row mb-0">
-        <div class="col s6 text-secondary">
-          Review By: {{review.user | title}}
-        </div>
-      </div>
+      {% endfor %}
     </div>
-    {% endfor %}
   </div>
 </div>
 <div class="fixed-action-btn">
@@ -72,11 +71,11 @@
       >
         {% csrf_token %}
         <div class="row mb-0">
-          <div class="input-field col s6">
+          <div class="input-field col l6 m6 s12">
             <input id="review-title" type="text" name="reviewTitle" required />
             <label for="review-title">Movie Review Title</label>
           </div>
-          <div class="input-field col s6">
+          <div class="input-field col l6 m6 s12">
             <input
               id="review-slug"
               type="text"
@@ -88,7 +87,7 @@
           </div>
         </div>
         <div class="row mb-0">
-          <div class="input-field col s6">
+          <div class="input-field col l6 m6 s12">
             <input
               id="auto-movie-name"
               type="text"
@@ -98,7 +97,7 @@
             />
             <label for="auto-movie-name">Movie Name</label>
           </div>
-          <div class="input-field col s6">
+          <div class="input-field col l6 m6 s12">
             <p class="range-field">
               <label
                 for="movie-rating"
@@ -131,8 +130,8 @@
           </div>
         </div>
         <div class="row mb-0">
-          <div class="input-field col s6">
-            <div class="input-field switch">
+          <div class="input-field col l6 m6 s12">
+            <div class="switch">
               <label>
                 Draft
                 <input type="checkbox" id="review-status-switch" />
@@ -141,7 +140,7 @@
               </label>
             </div>
           </div>
-          <div class="col s6">
+          <div class="col l6 m6 s12">
             <div class="chips chips-placeholder" id="review-chips"></div>
             <input type="hidden" name="reviewHashTags" id="review-hashtags" />
             <input
