@@ -1,0 +1,1 @@
+web: gunicorn bingebuffer.wsgi --log-file -
